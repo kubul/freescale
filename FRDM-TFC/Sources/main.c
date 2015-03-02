@@ -39,7 +39,7 @@ int DemoProgram() {
 
 	//CAMERA
 
-	uint32_t t,i=0;
+	uint32_t i=0;
 	int pixel, z;
 	float gain = 1;
 	float e;
@@ -128,8 +128,6 @@ int DemoProgram() {
 			//TERMINAL_PRINTF ("Axes acceleration: X: %d, Y: %d, Z: %d", readShort(accel), readShort(accel+2), readShort(accel+4));
 		}
 
-		break;
-
 		//CAMERA
 
 		if((TFC_Ticker[4] >= 100) && LineScanImageReady==1) 
@@ -139,11 +137,6 @@ int DemoProgram() {
 
 			LineScanImageReady=0;
 			z = 0;
-
-			if(t==0)
-				t=3;
-			else
-				t--;
 
 			for(i=0;i<128;i++)
 			{
@@ -173,6 +166,7 @@ int DemoProgram() {
 			//TERMINAL_PRINTF("%d, ",exposureTime);
 
 		}
+		break;
 
 	}
 	return 0;
@@ -216,46 +210,9 @@ if(TFC_Ticker[1] >= 125)
 }
  */
 /*
-//Demo Mode 3 will be in Freescale Garage Mode.  It will beam data from the Camera to the 
-//Labview Application
-TFC_HBRIDGE_DISABLE;
-
-if(TFC_Ticker[0]>100 && LineScanImageReady==1)
-{
-	TFC_Ticker[0] = 0;
-	LineScanImageReady=0;
-	z = 0;
-	//TERMINAL_PRINTF("\r\n");
-	//TERMINAL_PRINTF("L:");
-
-	if(t==0)
-		t=3;
-	else
-		t--;
-
-	TFC_SetBatteryLED_Level(t);
-
-
-
-
-
-
-
-						for(i=0;i<128;i++)
-						{
-							TERMINAL_PRINTF("%X",LineScanImage1[i]);
-							if(i==127)
-								TERMINAL_PRINTF("\r\n",LineScanImage1[i]);
-							else
-								TERMINAL_PRINTF(",",LineScanImage1[i]);
-						}	
-						}		
- */							
-
 
 //accel crap
 
-/* 
  * 	//I2CWriteRegister(MMA8451_I2C_ADDRESS, FF_MT_CFG, 0x11);
 
 	status = (int)I2CReadRegister(MMA8451_I2C_ADDRESS, STATUS);
