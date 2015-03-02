@@ -648,15 +648,15 @@ float TFC_ReadPot(uint8_t Channel)
 
 float TFC_ReadBatteryVoltage()
 {
-    return (((float)BatSenseADC_Value/(float)(ADC_MAX_CODE)) * 3.0);// * ((47000.0+10000.0)/10000.0);
+    return (((float)BatSenseADC_Value/(float)(ADC_MAX_CODE)) * 3.3 * 5.7);
 }
 
-uint16_t TFC_ReadHBridgeFeedBack(uint8_t Channel) 
+float TFC_ReadHBridgeFeedBack(uint8_t Channel) 
 {
     if(Channel == 0)
-        return HBridge_Value[0];
+        return (float)HBridge_Value[0] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
     else
-        return HBridge_Value[1];
+    	return (float)HBridge_Value[1] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
 }
 
 

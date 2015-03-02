@@ -43,7 +43,7 @@
 #define STARTGATEFOUNDMAX  0                       // max value to allow for finding starting gate before killing engine
 #define STARTGATEDELAY     50                      // Delay before searching for starting gate to kill engine
 
-#define MMA8451_I2C_ADDRESS (0x1d<<1)              // address for accelerometer?
+
 
 
 /* CAR INTERFACE
