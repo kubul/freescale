@@ -29,6 +29,9 @@ void TFC_InitGPIO()
 	PORTB_PCR10 = PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK;   
 	PORTB_PCR11 = PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK;   
 	
+	//Ports for accelerometer interrupts
+	PORTA_PCR14 = PORT_PCR_MUX(1);
+	PORTA_PCR15 = PORT_PCR_MUX(1);
 	
 	//Setup the output pins
     GPIOE_PDDR =  TFC_HBRIDGE_EN_LOC;  
@@ -79,4 +82,14 @@ uint8_t TFC_GetDIP_Switch()
 	DIP_Val = (GPIOE_PDIR>>2) & 0xF;
 
 	return DIP_Val;
+}
+
+uint8_t TFC_GetAccelInterrupts()
+{
+	uint8_t Interrupts_Val = 0;
+	
+	Interrupts_Val = (GPIOA_PDIR>>14);
+	Interrupts_Val = Interrupts_Val & 0x3;
+
+	return Interrupts_Val;
 }

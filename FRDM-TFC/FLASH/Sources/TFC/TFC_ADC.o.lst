@@ -1948,7 +1948,7 @@
  1294              		.cfi_endproc
  1295              	.LFE7:
  1297              		.global	__aeabi_fdiv
- 1298              		.global	__aeabi_fmul
+ 1298              		.global	__aeabi_dmul
  1299 00bc C046C046 		.section	.text.TFC_ReadBatteryVoltage,"ax",%progbits
  1300              		.align	2
  1301              		.global	TFC_ReadBatteryVoltage
@@ -1961,150 +1961,253 @@
  650:../Sources/TFC/TFC_ADC.c **** {
  1307              		.loc 1 650 0
  1308              		.cfi_startproc
- 1309 0000 80B5     		push	{r7, lr}
+ 1309 0000 98B5     		push	{r3, r4, r7, lr}
  1310              	.LCFI22:
- 1311              		.cfi_def_cfa_offset 8
- 1312              		.cfi_offset 7, -8
- 1313              		.cfi_offset 14, -4
- 1314 0002 00AF     		add	r7, sp, #0
- 1315              	.LCFI23:
- 1316              		.cfi_def_cfa_register 7
- 651:../Sources/TFC/TFC_ADC.c ****     return (((float)BatSenseADC_Value/(float)(ADC_MAX_CODE)) * 3.0);// * ((47000.0+10000.0)/10000.0
- 1317              		.loc 1 651 0
- 1318 0004 094B     		ldr	r3, .L49
- 1319 0006 1B88     		ldrh	r3, [r3]
- 1320 0008 9BB2     		uxth	r3, r3
- 1321 000a 181C     		mov	r0, r3
- 1322 000c FFF7FEFF 		bl	__aeabi_ui2f
- 1323 0010 031C     		add	r3, r0, #0
- 1324 0012 181C     		add	r0, r3, #0
- 1325 0014 0649     		ldr	r1, .L49+4
- 1326 0016 FFF7FEFF 		bl	__aeabi_fdiv
- 1327 001a 031C     		add	r3, r0, #0
- 1328 001c 181C     		add	r0, r3, #0
- 1329 001e 0549     		ldr	r1, .L49+8
- 1330 0020 FFF7FEFF 		bl	__aeabi_fmul
- 1331 0024 031C     		add	r3, r0, #0
+ 1311              		.cfi_def_cfa_offset 16
+ 1312              		.cfi_offset 3, -16
+ 1313              		.cfi_offset 4, -12
+ 1314              		.cfi_offset 7, -8
+ 1315              		.cfi_offset 14, -4
+ 1316 0002 00AF     		add	r7, sp, #0
+ 1317              	.LCFI23:
+ 1318              		.cfi_def_cfa_register 7
+ 651:../Sources/TFC/TFC_ADC.c ****     return (((float)BatSenseADC_Value/(float)(ADC_MAX_CODE)) * 3.3 * 5.7);
+ 1319              		.loc 1 651 0
+ 1320 0004 184B     		ldr	r3, .L49+16
+ 1321 0006 1B88     		ldrh	r3, [r3]
+ 1322 0008 9BB2     		uxth	r3, r3
+ 1323 000a 181C     		mov	r0, r3
+ 1324 000c FFF7FEFF 		bl	__aeabi_ui2f
+ 1325 0010 031C     		add	r3, r0, #0
+ 1326 0012 181C     		add	r0, r3, #0
+ 1327 0014 1549     		ldr	r1, .L49+20
+ 1328 0016 FFF7FEFF 		bl	__aeabi_fdiv
+ 1329 001a 031C     		add	r3, r0, #0
+ 1330 001c 181C     		add	r0, r3, #0
+ 1331 001e FFF7FEFF 		bl	__aeabi_f2d
+ 1332 0022 031C     		mov	r3, r0
+ 1333 0024 0C1C     		mov	r4, r1
+ 1334 0026 181C     		mov	r0, r3
+ 1335 0028 211C     		mov	r1, r4
+ 1336 002a 0C4B     		ldr	r3, .L49+4
+ 1337 002c 0A4A     		ldr	r2, .L49
+ 1338 002e FFF7FEFF 		bl	__aeabi_dmul
+ 1339 0032 031C     		mov	r3, r0
+ 1340 0034 0C1C     		mov	r4, r1
+ 1341 0036 181C     		mov	r0, r3
+ 1342 0038 211C     		mov	r1, r4
+ 1343 003a 094A     		ldr	r2, .L49+8
+ 1344 003c 094B     		ldr	r3, .L49+12
+ 1345 003e FFF7FEFF 		bl	__aeabi_dmul
+ 1346 0042 031C     		mov	r3, r0
+ 1347 0044 0C1C     		mov	r4, r1
+ 1348 0046 181C     		mov	r0, r3
+ 1349 0048 211C     		mov	r1, r4
+ 1350 004a FFF7FEFF 		bl	__aeabi_d2f
+ 1351 004e 031C     		add	r3, r0, #0
  652:../Sources/TFC/TFC_ADC.c **** }
- 1332              		.loc 1 652 0
- 1333 0026 181C     		add	r0, r3, #0
- 1334 0028 BD46     		mov	sp, r7
- 1335              		@ sp needed for prologue
- 1336 002a 80BD     		pop	{r7, pc}
- 1337              	.L50:
- 1338              		.align	2
- 1339              	.L49:
- 1340 002c 00000000 		.word	BatSenseADC_Value
- 1341 0030 00F07F45 		.word	1166012416
- 1342 0034 00004040 		.word	1077936128
- 1343              		.cfi_endproc
- 1344              	.LFE8:
- 1346              		.section	.text.TFC_ReadHBridgeFeedBack,"ax",%progbits
- 1347              		.align	2
- 1348              		.global	TFC_ReadHBridgeFeedBack
- 1349              		.code	16
- 1350              		.thumb_func
- 1352              	TFC_ReadHBridgeFeedBack:
- 1353              	.LFB9:
+ 1352              		.loc 1 652 0
+ 1353 0050 181C     		add	r0, r3, #0
+ 1354 0052 BD46     		mov	sp, r7
+ 1355              		@ sp needed for prologue
+ 1356 0054 98BD     		pop	{r3, r4, r7, pc}
+ 1357              	.L50:
+ 1358 0056 C046     		.align	3
+ 1359              	.L49:
+ 1360 0058 66666666 		.word	1717986918
+ 1361 005c 66660A40 		.word	1074423398
+ 1362 0060 CDCCCCCC 		.word	-858993459
+ 1363 0064 CCCC1640 		.word	1075236044
+ 1364 0068 00000000 		.word	BatSenseADC_Value
+ 1365 006c 00F07F45 		.word	1166012416
+ 1366              		.cfi_endproc
+ 1367              	.LFE8:
+ 1369              		.section	.text.TFC_ReadHBridgeFeedBack,"ax",%progbits
+ 1370              		.align	2
+ 1371              		.global	TFC_ReadHBridgeFeedBack
+ 1372              		.code	16
+ 1373              		.thumb_func
+ 1375              	TFC_ReadHBridgeFeedBack:
+ 1376              	.LFB9:
  653:../Sources/TFC/TFC_ADC.c **** 
- 654:../Sources/TFC/TFC_ADC.c **** uint16_t TFC_ReadHBridgeFeedBack(uint8_t Channel) 
+ 654:../Sources/TFC/TFC_ADC.c **** float TFC_ReadHBridgeFeedBack(uint8_t Channel) 
  655:../Sources/TFC/TFC_ADC.c **** {
- 1354              		.loc 1 655 0
- 1355              		.cfi_startproc
- 1356 0000 80B5     		push	{r7, lr}
- 1357              	.LCFI24:
- 1358              		.cfi_def_cfa_offset 8
- 1359              		.cfi_offset 7, -8
- 1360              		.cfi_offset 14, -4
- 1361 0002 82B0     		sub	sp, sp, #8
- 1362              	.LCFI25:
- 1363              		.cfi_def_cfa_offset 16
- 1364 0004 00AF     		add	r7, sp, #0
- 1365              	.LCFI26:
- 1366              		.cfi_def_cfa_register 7
- 1367 0006 021C     		mov	r2, r0
- 1368 0008 FB1D     		add	r3, r7, #7
- 1369 000a 1A70     		strb	r2, [r3]
+ 1377              		.loc 1 655 0
+ 1378              		.cfi_startproc
+ 1379 0000 90B5     		push	{r4, r7, lr}
+ 1380              	.LCFI24:
+ 1381              		.cfi_def_cfa_offset 12
+ 1382              		.cfi_offset 4, -12
+ 1383              		.cfi_offset 7, -8
+ 1384              		.cfi_offset 14, -4
+ 1385 0002 83B0     		sub	sp, sp, #12
+ 1386              	.LCFI25:
+ 1387              		.cfi_def_cfa_offset 24
+ 1388 0004 00AF     		add	r7, sp, #0
+ 1389              	.LCFI26:
+ 1390              		.cfi_def_cfa_register 7
+ 1391 0006 021C     		mov	r2, r0
+ 1392 0008 FB1D     		add	r3, r7, #7
+ 1393 000a 1A70     		strb	r2, [r3]
  656:../Sources/TFC/TFC_ADC.c ****     if(Channel == 0)
- 1370              		.loc 1 656 0
- 1371 000c FB1D     		add	r3, r7, #7
- 1372 000e 1B78     		ldrb	r3, [r3]
- 1373 0010 002B     		cmp	r3, #0
- 1374 0012 03D1     		bne	.L52
- 657:../Sources/TFC/TFC_ADC.c ****         return HBridge_Value[0];
- 1375              		.loc 1 657 0
- 1376 0014 054B     		ldr	r3, .L54
- 1377 0016 1B88     		ldrh	r3, [r3]
- 1378 0018 9BB2     		uxth	r3, r3
- 1379 001a 02E0     		b	.L53
- 1380              	.L52:
+ 1394              		.loc 1 656 0
+ 1395 000c FB1D     		add	r3, r7, #7
+ 1396 000e 1B78     		ldrb	r3, [r3]
+ 1397 0010 002B     		cmp	r3, #0
+ 1398 0012 2ED1     		bne	.L52
+ 657:../Sources/TFC/TFC_ADC.c ****         return (float)HBridge_Value[0] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
+ 1399              		.loc 1 657 0
+ 1400 0014 364B     		ldr	r3, .L54+24
+ 1401 0016 1B88     		ldrh	r3, [r3]
+ 1402 0018 9BB2     		uxth	r3, r3
+ 1403 001a 181C     		mov	r0, r3
+ 1404 001c FFF7FEFF 		bl	__aeabi_ui2f
+ 1405 0020 031C     		add	r3, r0, #0
+ 1406 0022 181C     		add	r0, r3, #0
+ 1407 0024 3349     		ldr	r1, .L54+28
+ 1408 0026 FFF7FEFF 		bl	__aeabi_fdiv
+ 1409 002a 031C     		add	r3, r0, #0
+ 1410 002c 181C     		add	r0, r3, #0
+ 1411 002e FFF7FEFF 		bl	__aeabi_f2d
+ 1412 0032 031C     		mov	r3, r0
+ 1413 0034 0C1C     		mov	r4, r1
+ 1414 0036 181C     		mov	r0, r3
+ 1415 0038 211C     		mov	r1, r4
+ 1416 003a 284B     		ldr	r3, .L54+4
+ 1417 003c 264A     		ldr	r2, .L54
+ 1418 003e FFF7FEFF 		bl	__aeabi_dmul
+ 1419 0042 031C     		mov	r3, r0
+ 1420 0044 0C1C     		mov	r4, r1
+ 1421 0046 181C     		mov	r0, r3
+ 1422 0048 211C     		mov	r1, r4
+ 1423 004a 254A     		ldr	r2, .L54+8
+ 1424 004c 254B     		ldr	r3, .L54+12
+ 1425 004e FFF7FEFF 		bl	__aeabi_dmul
+ 1426 0052 031C     		mov	r3, r0
+ 1427 0054 0C1C     		mov	r4, r1
+ 1428 0056 181C     		mov	r0, r3
+ 1429 0058 211C     		mov	r1, r4
+ 1430 005a 234A     		ldr	r2, .L54+16
+ 1431 005c 234B     		ldr	r3, .L54+20
+ 1432 005e FFF7FEFF 		bl	__aeabi_ddiv
+ 1433 0062 031C     		mov	r3, r0
+ 1434 0064 0C1C     		mov	r4, r1
+ 1435 0066 181C     		mov	r0, r3
+ 1436 0068 211C     		mov	r1, r4
+ 1437 006a FFF7FEFF 		bl	__aeabi_d2f
+ 1438 006e 031C     		add	r3, r0, #0
+ 1439 0070 2DE0     		b	.L53
+ 1440              	.L52:
  658:../Sources/TFC/TFC_ADC.c ****     else
- 659:../Sources/TFC/TFC_ADC.c ****         return HBridge_Value[1];
- 1381              		.loc 1 659 0
- 1382 001c 034B     		ldr	r3, .L54
- 1383 001e 5B88     		ldrh	r3, [r3, #2]
- 1384 0020 9BB2     		uxth	r3, r3
- 1385              	.L53:
+ 659:../Sources/TFC/TFC_ADC.c ****     	return (float)HBridge_Value[1] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
+ 1441              		.loc 1 659 0
+ 1442 0072 1F4B     		ldr	r3, .L54+24
+ 1443 0074 5B88     		ldrh	r3, [r3, #2]
+ 1444 0076 9BB2     		uxth	r3, r3
+ 1445 0078 181C     		mov	r0, r3
+ 1446 007a FFF7FEFF 		bl	__aeabi_ui2f
+ 1447 007e 031C     		add	r3, r0, #0
+ 1448 0080 181C     		add	r0, r3, #0
+ 1449 0082 1C49     		ldr	r1, .L54+28
+ 1450 0084 FFF7FEFF 		bl	__aeabi_fdiv
+ 1451 0088 031C     		add	r3, r0, #0
+ 1452 008a 181C     		add	r0, r3, #0
+ 1453 008c FFF7FEFF 		bl	__aeabi_f2d
+ 1454 0090 031C     		mov	r3, r0
+ 1455 0092 0C1C     		mov	r4, r1
+ 1456 0094 181C     		mov	r0, r3
+ 1457 0096 211C     		mov	r1, r4
+ 1458 0098 104B     		ldr	r3, .L54+4
+ 1459 009a 0F4A     		ldr	r2, .L54
+ 1460 009c FFF7FEFF 		bl	__aeabi_dmul
+ 1461 00a0 031C     		mov	r3, r0
+ 1462 00a2 0C1C     		mov	r4, r1
+ 1463 00a4 181C     		mov	r0, r3
+ 1464 00a6 211C     		mov	r1, r4
+ 1465 00a8 0D4A     		ldr	r2, .L54+8
+ 1466 00aa 0E4B     		ldr	r3, .L54+12
+ 1467 00ac FFF7FEFF 		bl	__aeabi_dmul
+ 1468 00b0 031C     		mov	r3, r0
+ 1469 00b2 0C1C     		mov	r4, r1
+ 1470 00b4 181C     		mov	r0, r3
+ 1471 00b6 211C     		mov	r1, r4
+ 1472 00b8 0B4A     		ldr	r2, .L54+16
+ 1473 00ba 0C4B     		ldr	r3, .L54+20
+ 1474 00bc FFF7FEFF 		bl	__aeabi_ddiv
+ 1475 00c0 031C     		mov	r3, r0
+ 1476 00c2 0C1C     		mov	r4, r1
+ 1477 00c4 181C     		mov	r0, r3
+ 1478 00c6 211C     		mov	r1, r4
+ 1479 00c8 FFF7FEFF 		bl	__aeabi_d2f
+ 1480 00cc 031C     		add	r3, r0, #0
+ 1481              	.L53:
  660:../Sources/TFC/TFC_ADC.c **** }
- 1386              		.loc 1 660 0
- 1387 0022 181C     		mov	r0, r3
- 1388 0024 BD46     		mov	sp, r7
- 1389 0026 02B0     		add	sp, sp, #8
- 1390              		@ sp needed for prologue
- 1391 0028 80BD     		pop	{r7, pc}
- 1392              	.L55:
- 1393 002a C046     		.align	2
- 1394              	.L54:
- 1395 002c 00000000 		.word	HBridge_Value
- 1396              		.cfi_endproc
- 1397              	.LFE9:
- 1399              		.text
- 1400              	.Letext0:
- 1401              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 1402              		.file 3 "C:/Users/p746/ws/FRDM-TFC/Project_Headers/MKL25Z4.h"
- 1403              		.file 4 "C:/Users/p746/ws/FRDM-TFC/Project_Headers/TFC\\TFC_LineScanCamera.h"
+ 1482              		.loc 1 660 0
+ 1483 00ce 181C     		add	r0, r3, #0
+ 1484 00d0 BD46     		mov	sp, r7
+ 1485 00d2 03B0     		add	sp, sp, #12
+ 1486              		@ sp needed for prologue
+ 1487 00d4 90BD     		pop	{r4, r7, pc}
+ 1488              	.L55:
+ 1489 00d6 C046     		.align	3
+ 1490              	.L54:
+ 1491 00d8 66666666 		.word	1717986918
+ 1492 00dc 66660A40 		.word	1074423398
+ 1493 00e0 00000000 		.word	0
+ 1494 00e4 00707740 		.word	1081569280
+ 1495 00e8 00000000 		.word	0
+ 1496 00ec 00806B40 		.word	1080786944
+ 1497 00f0 00000000 		.word	HBridge_Value
+ 1498 00f4 00F07F45 		.word	1166012416
+ 1499              		.cfi_endproc
+ 1500              	.LFE9:
+ 1502              		.text
+ 1503              	.Letext0:
+ 1504              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
+ 1505              		.file 3 "H:/git1/FRDM-TFC/Project_Headers/MKL25Z4.h"
+ 1506              		.file 4 "H:/git1/FRDM-TFC/Project_Headers/TFC\\TFC_LineScanCamera.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 TFC_ADC.c
                             *COM*:00000004 PotADC_Value
                             *COM*:00000004 HBridge_Value
                             *COM*:00000002 BatSenseADC_Value
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:23     .bss.CurrentADC_State:00000000 CurrentADC_State
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:24     .bss.CurrentADC_State:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:29     .bss.CurrentLineScanPixel:00000000 CurrentLineScanPixel
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:30     .bss.CurrentLineScanPixel:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:35     .bss.CurrentLineScanChannel:00000000 CurrentLineScanChannel
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:36     .bss.CurrentLineScanChannel:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:38     .text.ADC_Cal:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:43     .text.ADC_Cal:00000000 ADC_Cal
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:310    .text.ADC_Cal:000001b0 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:315    .text.ADC_Config_Alt:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:320    .text.ADC_Config_Alt:00000000 ADC_Config_Alt
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:394    .text.ADC_Read_Cal:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:399    .text.ADC_Read_Cal:00000000 ADC_Read_Cal
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:527    .text.InitADC0:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:532    .text.InitADC0:00000000 InitADC0
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:625    .text.InitADC0:00000084 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:632    .text.TFC_InitADCs:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:637    .text.TFC_InitADCs:00000000 TFC_InitADCs
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:702    .text.TFC_InitADCs:0000005c $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:711    .text.PIT_IRQHandler:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:716    .text.PIT_IRQHandler:00000000 PIT_IRQHandler
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:760    .text.PIT_IRQHandler:00000030 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:768    .text.ADC0_IRQHandler:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:773    .text.ADC0_IRQHandler:00000000 ADC0_IRQHandler
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:799    .rodata.ADC0_IRQHandler:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1161   .text.ADC0_IRQHandler:00000220 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1190   .text.TFC_ReadPot:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1195   .text.TFC_ReadPot:00000000 TFC_ReadPot
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1289   .text.TFC_ReadPot:000000a8 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1300   .text.TFC_ReadBatteryVoltage:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1305   .text.TFC_ReadBatteryVoltage:00000000 TFC_ReadBatteryVoltage
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1340   .text.TFC_ReadBatteryVoltage:0000002c $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1347   .text.TFC_ReadHBridgeFeedBack:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1352   .text.TFC_ReadHBridgeFeedBack:00000000 TFC_ReadHBridgeFeedBack
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1395   .text.TFC_ReadHBridgeFeedBack:0000002c $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:23     .bss.CurrentADC_State:00000000 CurrentADC_State
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:24     .bss.CurrentADC_State:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:29     .bss.CurrentLineScanPixel:00000000 CurrentLineScanPixel
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:30     .bss.CurrentLineScanPixel:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:35     .bss.CurrentLineScanChannel:00000000 CurrentLineScanChannel
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:36     .bss.CurrentLineScanChannel:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:38     .text.ADC_Cal:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:43     .text.ADC_Cal:00000000 ADC_Cal
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:310    .text.ADC_Cal:000001b0 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:315    .text.ADC_Config_Alt:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:320    .text.ADC_Config_Alt:00000000 ADC_Config_Alt
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:394    .text.ADC_Read_Cal:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:399    .text.ADC_Read_Cal:00000000 ADC_Read_Cal
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:527    .text.InitADC0:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:532    .text.InitADC0:00000000 InitADC0
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:625    .text.InitADC0:00000084 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:632    .text.TFC_InitADCs:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:637    .text.TFC_InitADCs:00000000 TFC_InitADCs
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:702    .text.TFC_InitADCs:0000005c $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:711    .text.PIT_IRQHandler:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:716    .text.PIT_IRQHandler:00000000 PIT_IRQHandler
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:760    .text.PIT_IRQHandler:00000030 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:768    .text.ADC0_IRQHandler:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:773    .text.ADC0_IRQHandler:00000000 ADC0_IRQHandler
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:799    .rodata.ADC0_IRQHandler:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1161   .text.ADC0_IRQHandler:00000220 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1190   .text.TFC_ReadPot:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1195   .text.TFC_ReadPot:00000000 TFC_ReadPot
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1289   .text.TFC_ReadPot:000000a8 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1300   .text.TFC_ReadBatteryVoltage:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1305   .text.TFC_ReadBatteryVoltage:00000000 TFC_ReadBatteryVoltage
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1360   .text.TFC_ReadBatteryVoltage:00000058 $d
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1370   .text.TFC_ReadHBridgeFeedBack:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1375   .text.TFC_ReadHBridgeFeedBack:00000000 TFC_ReadHBridgeFeedBack
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1491   .text.TFC_ReadHBridgeFeedBack:000000d8 $d
                      .debug_frame:00000010 $d
-C:\Users\p746\AppData\Local\Temp\ccBGYMIN.s:1299   .text.TFC_ReadPot:000000bc $t
+C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1299   .text.TFC_ReadPot:000000bc $t
 
 UNDEFINED SYMBOLS
 disable_irq
@@ -2124,4 +2227,4 @@ __aeabi_ddiv
 __aeabi_dadd
 __aeabi_d2f
 __aeabi_fdiv
-__aeabi_fmul
+__aeabi_dmul

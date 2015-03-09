@@ -131,7 +131,7 @@ void I2CReadMultiRegisters(char SlaveID, char RegisterAddress, char n, char * r)
 	*r = I2C0_D; // Le ultimo byte /// The last byte
 	Pause();
 }
-signed int readShort(char * r) 
+signed int ReadShort(char * r) 
 {
 	signed short result;
 	result = r[0] << 8;
@@ -139,4 +139,19 @@ signed int readShort(char * r)
 	result = result >> 2;
 	result = result*9.81/4.096; //2.395
 	return result;
+}
+void Init_Accel() 
+{
+	
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_CFG, 0x44); //enable single tap detection on Y axis
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_THSY, 0x40); //set Y axis tap threshold (x of 127)
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, HP_FILTER_CUTOFF, 0x10); //enable LPF
+	//I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG3, 0x02); //make interrupt polarity active HIGH
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG4, 0x08); //enable pulse interrupts
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG5, 0x08); //map pulse interrupt to pin INT1 (PTA14)
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_TMLT, 0x0); //time window to register pulse
+	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG1, 0x01); //start accel
+	
+	
+	
 }

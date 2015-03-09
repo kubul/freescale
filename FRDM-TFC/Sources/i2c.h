@@ -80,4 +80,3 @@ void IIC_StartTransmission (char SlaveID, char Mode);
 void I2CWriteRegister(char SlaveID, char u8RegisterAddress, char u8Data);
 char I2CReadRegister(char SlaveID, char u8RegisterAddress);
 void I2CReadMultiRegisters(char SlaveID, char u8RegisterAddress, char n, char * r);
-signed int ReadShort(char * r);

@@ -45,6 +45,6 @@
 void    TFC_InitGPIO();
 void    TFC_SetBatteryLED_Level(uint8_t BattLevel);
 uint8_t TFC_GetDIP_Switch();
-
+uint8_t TFC_GetAccelInterrupts();
 
 #endif /* TFC_BOARDSUPPORT_H_ */

@@ -241,7 +241,7 @@ TrackType CurrentTrack; */
 			// Drive!!     
 			Drive();
 			//TERMINAL_PRINTF("%d ",UnknownCount);
-		
+
 		} 
 	}
 
@@ -265,7 +265,7 @@ TrackType CurrentTrack; */
 	void grabCameraFrame()
 	{
 		uint32_t pixel;
-		
+
 		uint32_t z = 0;
 		uint32_t i = 0;
 
@@ -537,7 +537,7 @@ TrackType CurrentTrack; */
 				UnknownCount = 0;                                                 // reset unknown status count
 				LastLinePosition = CurrentLinePosition;
 				CurrentLinePosition = PosEdges[0] - ( MAX_LINE_WIDTH / 2);        // update line position
-				
+
 			}
 		} else if ((numNegEdges == 1) && (numPosEdges == 0))  {     // 1 neg edge found (POSSIBLE LINE)
 			if ((NegEdges[0] >= (MAX_LINE_SCAN - MAX_LINE_WIDTH)) && (LastLinePosError > 0))    // neg edge is within line width of edge of camera (RIGHT)
@@ -546,7 +546,7 @@ TrackType CurrentTrack; */
 				UnknownCount = 0;                                                 // reset unknown status count
 				LastLinePosition = CurrentLinePosition;
 				CurrentLinePosition = NegEdges[0] + ( MAX_LINE_WIDTH / 2);        // update line position
-				
+
 			} 
 		} else if ((numPosEdges == 2) && (numNegEdges == 2))  {     // 2 negative and 2 positive edges found (STARTING/FINISH GATE)
 
@@ -898,7 +898,7 @@ TrackType CurrentTrack; */
 			TFC_SetMotorPWM(CurrentRightDriveSetting,CurrentLeftDriveSetting);
 		}
 	}
-	
+
 
 	void adjustLights()
 	{
