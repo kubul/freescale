@@ -506,6 +506,8 @@ void ADC0_IRQHandler()
 		case ADC_STATE_CAPTURE_POT_0:
 				
 				PotADC_Value[0] = ADC0_RA;
+				
+				
 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
 				ADC0_SC1A  =  TFC_POT_1_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
 				CurrentADC_State = ADC_STATE_CAPTURE_POT_1;

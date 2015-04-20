@@ -134,60 +134,60 @@
  105 0074 DA62     		str	r2, [r3, #44]
   31:../Sources/TFC/TFC_BoardSupport.c **** 	
   32:../Sources/TFC/TFC_BoardSupport.c **** 	//Ports for accelerometer interrupts
-  33:../Sources/TFC/TFC_BoardSupport.c **** 	PORTA_PCR14 = PORT_PCR_MUX(1);
+  33:../Sources/TFC/TFC_BoardSupport.c **** 	PORTA_PCR14 = PORT_PCR_MUX(1) | PORT_PCR_IRQC(0xA) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK; //Set in
  106              		.loc 1 33 0
  107 0076 114B     		ldr	r3, .L2+20
- 108 0078 8022     		mov	r2, #128
- 109 007a 5200     		lsl	r2, r2, #1
- 110 007c 9A63     		str	r2, [r3, #56]
+ 108 0078 114A     		ldr	r2, .L2+24
+ 109 007a 9A63     		str	r2, [r3, #56]
   34:../Sources/TFC/TFC_BoardSupport.c **** 	PORTA_PCR15 = PORT_PCR_MUX(1);
- 111              		.loc 1 34 0
- 112 007e 0F4B     		ldr	r3, .L2+20
- 113 0080 8022     		mov	r2, #128
- 114 0082 5200     		lsl	r2, r2, #1
- 115 0084 DA63     		str	r2, [r3, #60]
+ 110              		.loc 1 34 0
+ 111 007c 0F4B     		ldr	r3, .L2+20
+ 112 007e 8022     		mov	r2, #128
+ 113 0080 5200     		lsl	r2, r2, #1
+ 114 0082 DA63     		str	r2, [r3, #60]
   35:../Sources/TFC/TFC_BoardSupport.c **** 	
   36:../Sources/TFC/TFC_BoardSupport.c **** 	//Setup the output pins
   37:../Sources/TFC/TFC_BoardSupport.c ****     GPIOE_PDDR =  TFC_HBRIDGE_EN_LOC;  
- 116              		.loc 1 37 0
- 117 0086 0E4B     		ldr	r3, .L2+24
- 118 0088 8022     		mov	r2, #128
- 119 008a 9203     		lsl	r2, r2, #14
- 120 008c 5A61     		str	r2, [r3, #20]
+ 115              		.loc 1 37 0
+ 116 0084 0F4B     		ldr	r3, .L2+28
+ 117 0086 8022     		mov	r2, #128
+ 118 0088 9203     		lsl	r2, r2, #14
+ 119 008a 5A61     		str	r2, [r3, #20]
   38:../Sources/TFC/TFC_BoardSupport.c ****     GPIOB_PDDR =  TFC_BAT_LED0_LOC	| TFC_BAT_LED1_LOC | TFC_BAT_LED2_LOC | TFC_BAT_LED3_LOC;
- 121              		.loc 1 38 0
- 122 008e 0D4B     		ldr	r3, .L2+28
- 123 0090 F022     		mov	r2, #240
- 124 0092 1201     		lsl	r2, r2, #4
- 125 0094 5A61     		str	r2, [r3, #20]
+ 120              		.loc 1 38 0
+ 121 008c 0E4B     		ldr	r3, .L2+32
+ 122 008e F022     		mov	r2, #240
+ 123 0090 1201     		lsl	r2, r2, #4
+ 124 0092 5A61     		str	r2, [r3, #20]
   39:../Sources/TFC/TFC_BoardSupport.c **** 
   40:../Sources/TFC/TFC_BoardSupport.c ****     TFC_SetBatteryLED_Level(0);
- 126              		.loc 1 40 0
- 127 0096 0020     		mov	r0, #0
- 128 0098 FFF7FEFF 		bl	TFC_SetBatteryLED_Level
+ 125              		.loc 1 40 0
+ 126 0094 0020     		mov	r0, #0
+ 127 0096 FFF7FEFF 		bl	TFC_SetBatteryLED_Level
   41:../Sources/TFC/TFC_BoardSupport.c ****     TFC_HBRIDGE_DISABLE;
- 129              		.loc 1 41 0
- 130 009c 084B     		ldr	r3, .L2+24
- 131 009e 8022     		mov	r2, #128
- 132 00a0 9203     		lsl	r2, r2, #14
- 133 00a2 9A60     		str	r2, [r3, #8]
+ 128              		.loc 1 41 0
+ 129 009a 0A4B     		ldr	r3, .L2+28
+ 130 009c 8022     		mov	r2, #128
+ 131 009e 9203     		lsl	r2, r2, #14
+ 132 00a0 9A60     		str	r2, [r3, #8]
   42:../Sources/TFC/TFC_BoardSupport.c ****     
   43:../Sources/TFC/TFC_BoardSupport.c **** }
- 134              		.loc 1 43 0
- 135 00a4 BD46     		mov	sp, r7
- 136              		@ sp needed for prologue
- 137 00a6 80BD     		pop	{r7, pc}
- 138              	.L3:
- 139              		.align	2
- 140              	.L2:
- 141 00a8 00700440 		.word	1074032640
- 142 00ac 38100000 		.word	4152
- 143 00b0 00D00440 		.word	1074057216
- 144 00b4 00B00440 		.word	1074049024
- 145 00b8 00A00440 		.word	1074044928
- 146 00bc 00900440 		.word	1074040832
- 147 00c0 00F10F40 		.word	1074786560
- 148 00c4 40F00F40 		.word	1074786368
+ 133              		.loc 1 43 0
+ 134 00a2 BD46     		mov	sp, r7
+ 135              		@ sp needed for prologue
+ 136 00a4 80BD     		pop	{r7, pc}
+ 137              	.L3:
+ 138 00a6 C046     		.align	2
+ 139              	.L2:
+ 140 00a8 00700440 		.word	1074032640
+ 141 00ac 38100000 		.word	4152
+ 142 00b0 00D00440 		.word	1074057216
+ 143 00b4 00B00440 		.word	1074049024
+ 144 00b8 00A00440 		.word	1074044928
+ 145 00bc 00900440 		.word	1074040832
+ 146 00c0 03010A00 		.word	655619
+ 147 00c4 00F10F40 		.word	1074786560
+ 148 00c8 40F00F40 		.word	1074786368
  149              		.cfi_endproc
  150              	.LFE0:
  152              		.section	.text.TFC_SetBatteryLED_Level,"ax",%progbits
@@ -449,21 +449,21 @@
  362              		.text
  363              	.Letext0:
  364              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 365              		.file 3 "H:/git1/FRDM-TFC/Project_Headers/MKL25Z4.h"
+ 365              		.file 3 "H:/git2/FRDM-TFC/Project_Headers/MKL25Z4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 TFC_BoardSupport.c
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:18     .text.TFC_InitGPIO:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:23     .text.TFC_InitGPIO:00000000 TFC_InitGPIO
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:158    .text.TFC_SetBatteryLED_Level:00000000 TFC_SetBatteryLED_Level
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:141    .text.TFC_InitGPIO:000000a8 $d
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:153    .text.TFC_SetBatteryLED_Level:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:254    .text.TFC_SetBatteryLED_Level:00000074 $d
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:259    .text.TFC_GetDIP_Switch:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:264    .text.TFC_GetDIP_Switch:00000000 TFC_GetDIP_Switch
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:304    .text.TFC_GetDIP_Switch:00000028 $d
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:309    .text.TFC_GetAccelInterrupts:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:314    .text.TFC_GetAccelInterrupts:00000000 TFC_GetAccelInterrupts
-C:\Users\p746\AppData\Local\Temp\ccEQu6vv.s:358    .text.TFC_GetAccelInterrupts:00000030 $d
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:18     .text.TFC_InitGPIO:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:23     .text.TFC_InitGPIO:00000000 TFC_InitGPIO
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:158    .text.TFC_SetBatteryLED_Level:00000000 TFC_SetBatteryLED_Level
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:140    .text.TFC_InitGPIO:000000a8 $d
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:153    .text.TFC_SetBatteryLED_Level:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:254    .text.TFC_SetBatteryLED_Level:00000074 $d
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:259    .text.TFC_GetDIP_Switch:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:264    .text.TFC_GetDIP_Switch:00000000 TFC_GetDIP_Switch
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:304    .text.TFC_GetDIP_Switch:00000028 $d
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:309    .text.TFC_GetAccelInterrupts:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:314    .text.TFC_GetAccelInterrupts:00000000 TFC_GetAccelInterrupts
+C:\Users\p746\AppData\Local\Temp\ccdK7yei.s:358    .text.TFC_GetAccelInterrupts:00000030 $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

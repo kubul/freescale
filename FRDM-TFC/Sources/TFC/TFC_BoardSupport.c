@@ -30,7 +30,7 @@ void TFC_InitGPIO()
 	PORTB_PCR11 = PORT_PCR_MUX(1) | PORT_PCR_DSE_MASK;   
 	
 	//Ports for accelerometer interrupts
-	PORTA_PCR14 = PORT_PCR_MUX(1);
+	PORTA_PCR14 = PORT_PCR_MUX(1) | PORT_PCR_IRQC(0xA) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK; //Set interrupt on falling edge for pullup
 	PORTA_PCR15 = PORT_PCR_MUX(1);
 	
 	//Setup the output pins

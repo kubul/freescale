@@ -1310,218 +1310,220 @@
  821 0026 9AB2     		uxth	r2, r3
  822 0028 804B     		ldr	r3, .L40+12
  823 002a 1A80     		strh	r2, [r3]
- 509:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
- 824              		.loc 1 509 0
+ 509:../Sources/TFC/TFC_ADC.c **** 				
+ 510:../Sources/TFC/TFC_ADC.c **** 				
+ 511:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
+ 824              		.loc 1 511 0
  825 002c 7E4B     		ldr	r3, .L40+8
  826 002e 7E4A     		ldr	r2, .L40+8
  827 0030 D268     		ldr	r2, [r2, #12]
  828 0032 1021     		mov	r1, #16
  829 0034 8A43     		bic	r2, r1
  830 0036 DA60     		str	r2, [r3, #12]
- 510:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_POT_1_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 831              		.loc 1 510 0
+ 512:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_POT_1_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 831              		.loc 1 512 0
  832 0038 7B4B     		ldr	r3, .L40+8
  833 003a 4C22     		mov	r2, #76
  834 003c 1A60     		str	r2, [r3]
- 511:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_POT_1;
- 835              		.loc 1 511 0
+ 513:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_POT_1;
+ 835              		.loc 1 513 0
  836 003e 784B     		ldr	r3, .L40
  837 0040 0222     		mov	r2, #2
  838 0042 1A70     		strb	r2, [r3]
- 512:../Sources/TFC/TFC_ADC.c **** 				
- 513:../Sources/TFC/TFC_ADC.c **** 			break;
- 839              		.loc 1 513 0
+ 514:../Sources/TFC/TFC_ADC.c **** 				
+ 515:../Sources/TFC/TFC_ADC.c **** 			break;
+ 839              		.loc 1 515 0
  840 0044 E8E0     		b	.L18
  841              	.L21:
- 514:../Sources/TFC/TFC_ADC.c **** 		
- 515:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_POT_1:
  516:../Sources/TFC/TFC_ADC.c **** 		
- 517:../Sources/TFC/TFC_ADC.c **** 				PotADC_Value[1] = ADC0_RA;
- 842              		.loc 1 517 0
+ 517:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_POT_1:
+ 518:../Sources/TFC/TFC_ADC.c **** 		
+ 519:../Sources/TFC/TFC_ADC.c **** 				PotADC_Value[1] = ADC0_RA;
+ 842              		.loc 1 519 0
  843 0046 784B     		ldr	r3, .L40+8
  844 0048 1B69     		ldr	r3, [r3, #16]
  845 004a 9AB2     		uxth	r2, r3
  846 004c 774B     		ldr	r3, .L40+12
  847 004e 5A80     		strh	r2, [r3, #2]
- 518:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  |= ADC_CFG2_MUXSEL_MASK; //Select the B side of the mux
- 848              		.loc 1 518 0
+ 520:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  |= ADC_CFG2_MUXSEL_MASK; //Select the B side of the mux
+ 848              		.loc 1 520 0
  849 0050 754B     		ldr	r3, .L40+8
  850 0052 754A     		ldr	r2, .L40+8
  851 0054 D268     		ldr	r2, [r2, #12]
  852 0056 1021     		mov	r1, #16
  853 0058 0A43     		orr	r2, r1
  854 005a DA60     		str	r2, [r3, #12]
- 519:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_BAT_SENSE_CHANNEL| ADC_SC1_AIEN_MASK;
- 855              		.loc 1 519 0
+ 521:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_BAT_SENSE_CHANNEL| ADC_SC1_AIEN_MASK;
+ 855              		.loc 1 521 0
  856 005c 724B     		ldr	r3, .L40+8
  857 005e 4422     		mov	r2, #68
  858 0060 1A60     		str	r2, [r3]
- 520:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_BATTERY_LEVEL;
- 859              		.loc 1 520 0
+ 522:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_BATTERY_LEVEL;
+ 859              		.loc 1 522 0
  860 0062 6F4B     		ldr	r3, .L40
  861 0064 0322     		mov	r2, #3
  862 0066 1A70     		strb	r2, [r3]
- 521:../Sources/TFC/TFC_ADC.c **** 				
- 522:../Sources/TFC/TFC_ADC.c **** 			break;
- 863              		.loc 1 522 0
+ 523:../Sources/TFC/TFC_ADC.c **** 				
+ 524:../Sources/TFC/TFC_ADC.c **** 			break;
+ 863              		.loc 1 524 0
  864 0068 D6E0     		b	.L18
  865              	.L22:
- 523:../Sources/TFC/TFC_ADC.c **** 		
- 524:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_BATTERY_LEVEL:
- 525:../Sources/TFC/TFC_ADC.c **** 			
- 526:../Sources/TFC/TFC_ADC.c **** 				BatSenseADC_Value = ADC0_RA;
- 866              		.loc 1 526 0
+ 525:../Sources/TFC/TFC_ADC.c **** 		
+ 526:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_BATTERY_LEVEL:
+ 527:../Sources/TFC/TFC_ADC.c **** 			
+ 528:../Sources/TFC/TFC_ADC.c **** 				BatSenseADC_Value = ADC0_RA;
+ 866              		.loc 1 528 0
  867 006a 6F4B     		ldr	r3, .L40+8
  868 006c 1B69     		ldr	r3, [r3, #16]
  869 006e 9AB2     		uxth	r2, r3
  870 0070 6F4B     		ldr	r3, .L40+16
  871 0072 1A80     		strh	r2, [r3]
- 527:../Sources/TFC/TFC_ADC.c **** 				
- 528:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
- 872              		.loc 1 528 0
+ 529:../Sources/TFC/TFC_ADC.c **** 				
+ 530:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
+ 872              		.loc 1 530 0
  873 0074 6C4B     		ldr	r3, .L40+8
  874 0076 6C4A     		ldr	r2, .L40+8
  875 0078 D268     		ldr	r2, [r2, #12]
  876 007a 1021     		mov	r1, #16
  877 007c 8A43     		bic	r2, r1
  878 007e DA60     		str	r2, [r3, #12]
- 529:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_HBRIDGE_FB_A_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 879              		.loc 1 529 0
+ 531:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_HBRIDGE_FB_A_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 879              		.loc 1 531 0
  880 0080 694B     		ldr	r3, .L40+8
  881 0082 4722     		mov	r2, #71
  882 0084 1A60     		str	r2, [r3]
- 530:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_HBRIDGE_A;
- 883              		.loc 1 530 0
+ 532:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_HBRIDGE_A;
+ 883              		.loc 1 532 0
  884 0086 664B     		ldr	r3, .L40
  885 0088 0422     		mov	r2, #4
  886 008a 1A70     		strb	r2, [r3]
- 531:../Sources/TFC/TFC_ADC.c **** 				
- 532:../Sources/TFC/TFC_ADC.c **** 				break;
- 887              		.loc 1 532 0
+ 533:../Sources/TFC/TFC_ADC.c **** 				
+ 534:../Sources/TFC/TFC_ADC.c **** 				break;
+ 887              		.loc 1 534 0
  888 008c C4E0     		b	.L18
  889              	.L23:
- 533:../Sources/TFC/TFC_ADC.c **** 				
- 534:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_HBRIDGE_A:	
- 535:../Sources/TFC/TFC_ADC.c **** 			
- 536:../Sources/TFC/TFC_ADC.c **** 				HBridge_Value[0] = ADC0_RA;
- 890              		.loc 1 536 0
+ 535:../Sources/TFC/TFC_ADC.c **** 				
+ 536:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_HBRIDGE_A:	
+ 537:../Sources/TFC/TFC_ADC.c **** 			
+ 538:../Sources/TFC/TFC_ADC.c **** 				HBridge_Value[0] = ADC0_RA;
+ 890              		.loc 1 538 0
  891 008e 664B     		ldr	r3, .L40+8
  892 0090 1B69     		ldr	r3, [r3, #16]
  893 0092 9AB2     		uxth	r2, r3
  894 0094 674B     		ldr	r3, .L40+20
  895 0096 1A80     		strh	r2, [r3]
- 537:../Sources/TFC/TFC_ADC.c **** 						
- 538:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
- 896              		.loc 1 538 0
+ 539:../Sources/TFC/TFC_ADC.c **** 						
+ 540:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
+ 896              		.loc 1 540 0
  897 0098 634B     		ldr	r3, .L40+8
  898 009a 634A     		ldr	r2, .L40+8
  899 009c D268     		ldr	r2, [r2, #12]
  900 009e 1021     		mov	r1, #16
  901 00a0 8A43     		bic	r2, r1
  902 00a2 DA60     		str	r2, [r3, #12]
- 539:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_HBRIDGE_FB_B_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 903              		.loc 1 539 0
+ 541:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_HBRIDGE_FB_B_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 903              		.loc 1 541 0
  904 00a4 604B     		ldr	r3, .L40+8
  905 00a6 4322     		mov	r2, #67
  906 00a8 1A60     		str	r2, [r3]
- 540:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_HBRIDGE_B;
- 907              		.loc 1 540 0
+ 542:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_HBRIDGE_B;
+ 907              		.loc 1 542 0
  908 00aa 5D4B     		ldr	r3, .L40
  909 00ac 0522     		mov	r2, #5
  910 00ae 1A70     		strb	r2, [r3]
- 541:../Sources/TFC/TFC_ADC.c **** 				
- 542:../Sources/TFC/TFC_ADC.c **** 				break;
- 911              		.loc 1 542 0
+ 543:../Sources/TFC/TFC_ADC.c **** 				
+ 544:../Sources/TFC/TFC_ADC.c **** 				break;
+ 911              		.loc 1 544 0
  912 00b0 B2E0     		b	.L18
  913              	.L24:
- 543:../Sources/TFC/TFC_ADC.c **** 			
- 544:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_HBRIDGE_B:	
  545:../Sources/TFC/TFC_ADC.c **** 			
- 546:../Sources/TFC/TFC_ADC.c **** 				HBridge_Value[1] = ADC0_RA;
- 914              		.loc 1 546 0
+ 546:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_HBRIDGE_B:	
+ 547:../Sources/TFC/TFC_ADC.c **** 			
+ 548:../Sources/TFC/TFC_ADC.c **** 				HBridge_Value[1] = ADC0_RA;
+ 914              		.loc 1 548 0
  915 00b2 5D4B     		ldr	r3, .L40+8
  916 00b4 1B69     		ldr	r3, [r3, #16]
  917 00b6 9AB2     		uxth	r2, r3
  918 00b8 5E4B     		ldr	r3, .L40+20
  919 00ba 5A80     		strh	r2, [r3, #2]
- 547:../Sources/TFC/TFC_ADC.c **** 			
- 548:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_LINE_SCAN;
- 920              		.loc 1 548 0
+ 549:../Sources/TFC/TFC_ADC.c **** 			
+ 550:../Sources/TFC/TFC_ADC.c **** 				CurrentADC_State = ADC_STATE_CAPTURE_LINE_SCAN;
+ 920              		.loc 1 550 0
  921 00bc 584B     		ldr	r3, .L40
  922 00be 0622     		mov	r2, #6
  923 00c0 1A70     		strb	r2, [r3]
- 549:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  |= ADC_CFG2_MUXSEL_MASK; //Select the B side of the mux
- 924              		.loc 1 549 0
+ 551:../Sources/TFC/TFC_ADC.c **** 				ADC0_CFG2  |= ADC_CFG2_MUXSEL_MASK; //Select the B side of the mux
+ 924              		.loc 1 551 0
  925 00c2 594B     		ldr	r3, .L40+8
  926 00c4 584A     		ldr	r2, .L40+8
  927 00c6 D268     		ldr	r2, [r2, #12]
  928 00c8 1021     		mov	r1, #16
  929 00ca 0A43     		orr	r2, r1
  930 00cc DA60     		str	r2, [r3, #12]
- 550:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 931              		.loc 1 550 0
+ 552:../Sources/TFC/TFC_ADC.c **** 				ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 931              		.loc 1 552 0
  932 00ce 564B     		ldr	r3, .L40+8
  933 00d0 4622     		mov	r2, #70
  934 00d2 1A60     		str	r2, [r3]
- 551:../Sources/TFC/TFC_ADC.c **** 				
- 552:../Sources/TFC/TFC_ADC.c **** 				
- 553:../Sources/TFC/TFC_ADC.c **** 				//Now we will start the sequence for the Linescan camera
+ 553:../Sources/TFC/TFC_ADC.c **** 				
  554:../Sources/TFC/TFC_ADC.c **** 				
- 555:../Sources/TFC/TFC_ADC.c **** 				TAOS_CLK_HIGH;
- 935              		.loc 1 555 0
+ 555:../Sources/TFC/TFC_ADC.c **** 				//Now we will start the sequence for the Linescan camera
+ 556:../Sources/TFC/TFC_ADC.c **** 				
+ 557:../Sources/TFC/TFC_ADC.c **** 				TAOS_CLK_HIGH;
+ 935              		.loc 1 557 0
  936 00d4 584B     		ldr	r3, .L40+24
  937 00d6 0222     		mov	r2, #2
  938 00d8 5A60     		str	r2, [r3, #4]
- 556:../Sources/TFC/TFC_ADC.c **** 				
- 557:../Sources/TFC/TFC_ADC.c **** 				for(Junk = 0;Junk<50;Junk++)
- 939              		.loc 1 557 0
+ 558:../Sources/TFC/TFC_ADC.c **** 				
+ 559:../Sources/TFC/TFC_ADC.c **** 				for(Junk = 0;Junk<50;Junk++)
+ 939              		.loc 1 559 0
  940 00da FB1D     		add	r3, r7, #7
  941 00dc 0022     		mov	r2, #0
  942 00de 1A70     		strb	r2, [r3]
  943 00e0 04E0     		b	.L28
  944              	.L29:
- 945              		.loc 1 557 0 is_stmt 0
+ 945              		.loc 1 559 0 is_stmt 0
  946 00e2 FB1D     		add	r3, r7, #7
  947 00e4 FA1D     		add	r2, r7, #7
  948 00e6 1278     		ldrb	r2, [r2]
  949 00e8 0132     		add	r2, r2, #1
  950 00ea 1A70     		strb	r2, [r3]
  951              	.L28:
- 952              		.loc 1 557 0
+ 952              		.loc 1 559 0
  953 00ec FB1D     		add	r3, r7, #7
  954 00ee 1B78     		ldrb	r3, [r3]
  955 00f0 312B     		cmp	r3, #49
  956 00f2 F6D9     		bls	.L29
- 558:../Sources/TFC/TFC_ADC.c **** 				{
- 559:../Sources/TFC/TFC_ADC.c **** 				}
- 560:../Sources/TFC/TFC_ADC.c **** 				
- 561:../Sources/TFC/TFC_ADC.c **** 				TAOS_SI_LOW;
- 957              		.loc 1 561 0 is_stmt 1
+ 560:../Sources/TFC/TFC_ADC.c **** 				{
+ 561:../Sources/TFC/TFC_ADC.c **** 				}
+ 562:../Sources/TFC/TFC_ADC.c **** 				
+ 563:../Sources/TFC/TFC_ADC.c **** 				TAOS_SI_LOW;
+ 957              		.loc 1 563 0 is_stmt 1
  958 00f4 514B     		ldr	r3, .L40+28
  959 00f6 8022     		mov	r2, #128
  960 00f8 9A60     		str	r2, [r3, #8]
- 562:../Sources/TFC/TFC_ADC.c **** 
- 563:../Sources/TFC/TFC_ADC.c **** 				
- 564:../Sources/TFC/TFC_ADC.c **** 				CurrentLineScanPixel = 0;
- 961              		.loc 1 564 0
+ 564:../Sources/TFC/TFC_ADC.c **** 
+ 565:../Sources/TFC/TFC_ADC.c **** 				
+ 566:../Sources/TFC/TFC_ADC.c **** 				CurrentLineScanPixel = 0;
+ 961              		.loc 1 566 0
  962 00fa 514B     		ldr	r3, .L40+32
  963 00fc 0022     		mov	r2, #0
  964 00fe 1A70     		strb	r2, [r3]
- 565:../Sources/TFC/TFC_ADC.c **** 				CurrentLineScanChannel = 0;
- 965              		.loc 1 565 0
+ 567:../Sources/TFC/TFC_ADC.c **** 				CurrentLineScanChannel = 0;
+ 965              		.loc 1 567 0
  966 0100 504B     		ldr	r3, .L40+36
  967 0102 0022     		mov	r2, #0
  968 0104 1A70     		strb	r2, [r3]
- 566:../Sources/TFC/TFC_ADC.c **** 			
- 567:../Sources/TFC/TFC_ADC.c **** 				break;
- 969              		.loc 1 567 0
+ 568:../Sources/TFC/TFC_ADC.c **** 			
+ 569:../Sources/TFC/TFC_ADC.c **** 				break;
+ 969              		.loc 1 569 0
  970 0106 87E0     		b	.L18
  971              	.L25:
- 568:../Sources/TFC/TFC_ADC.c **** 			
- 569:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_LINE_SCAN:
- 570:../Sources/TFC/TFC_ADC.c **** 					
- 571:../Sources/TFC/TFC_ADC.c **** 					if(CurrentLineScanPixel<128)
- 972              		.loc 1 571 0
+ 570:../Sources/TFC/TFC_ADC.c **** 			
+ 571:../Sources/TFC/TFC_ADC.c **** 		case ADC_STATE_CAPTURE_LINE_SCAN:
+ 572:../Sources/TFC/TFC_ADC.c **** 					
+ 573:../Sources/TFC/TFC_ADC.c **** 					if(CurrentLineScanPixel<128)
+ 972              		.loc 1 573 0
  973 0108 4D4B     		ldr	r3, .L40+32
  974 010a 1B78     		ldrb	r3, [r3]
  975 010c DBB2     		uxtb	r3, r3
@@ -1529,17 +1531,17 @@
  977 0110 5BB2     		sxtb	r3, r3
  978 0112 002B     		cmp	r3, #0
  979 0114 42DB     		blt	.L30
- 572:../Sources/TFC/TFC_ADC.c **** 					{
- 573:../Sources/TFC/TFC_ADC.c **** 						if(CurrentLineScanChannel == 0)
- 980              		.loc 1 573 0
+ 574:../Sources/TFC/TFC_ADC.c **** 					{
+ 575:../Sources/TFC/TFC_ADC.c **** 						if(CurrentLineScanChannel == 0)
+ 980              		.loc 1 575 0
  981 0116 4B4B     		ldr	r3, .L40+36
  982 0118 1B78     		ldrb	r3, [r3]
  983 011a DBB2     		uxtb	r3, r3
  984 011c 002B     		cmp	r3, #0
  985 011e 11D1     		bne	.L31
- 574:../Sources/TFC/TFC_ADC.c **** 						{
- 575:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
- 986              		.loc 1 575 0
+ 576:../Sources/TFC/TFC_ADC.c **** 						{
+ 577:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
+ 986              		.loc 1 577 0
  987 0120 494B     		ldr	r3, .L40+40
  988 0122 1A68     		ldr	r2, [r3]
  989 0124 464B     		ldr	r3, .L40+32
@@ -1551,78 +1553,78 @@
  995 0130 1B69     		ldr	r3, [r3, #16]
  996 0132 9BB2     		uxth	r3, r3
  997 0134 1380     		strh	r3, [r2]
- 576:../Sources/TFC/TFC_ADC.c **** 							ADC0_SC1A  =  TFC_LINESCAN1_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 998              		.loc 1 576 0
+ 578:../Sources/TFC/TFC_ADC.c **** 							ADC0_SC1A  =  TFC_LINESCAN1_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 998              		.loc 1 578 0
  999 0136 3C4B     		ldr	r3, .L40+8
  1000 0138 4722     		mov	r2, #71
  1001 013a 1A60     		str	r2, [r3]
- 577:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanChannel = 1;
- 1002              		.loc 1 577 0
+ 579:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanChannel = 1;
+ 1002              		.loc 1 579 0
  1003 013c 414B     		ldr	r3, .L40+36
  1004 013e 0122     		mov	r2, #1
  1005 0140 1A70     		strb	r2, [r3]
- 578:../Sources/TFC/TFC_ADC.c **** 							
- 579:../Sources/TFC/TFC_ADC.c **** 						}
- 580:../Sources/TFC/TFC_ADC.c **** 						else
- 581:../Sources/TFC/TFC_ADC.c **** 						{
- 582:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
- 583:../Sources/TFC/TFC_ADC.c **** 							ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 584:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanChannel = 0;
- 585:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanPixel++;
- 586:../Sources/TFC/TFC_ADC.c **** 							
- 587:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_LOW;
- 588:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
- 589:../Sources/TFC/TFC_ADC.c **** 									{
- 590:../Sources/TFC/TFC_ADC.c **** 									}
- 591:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_HIGH;
- 592:../Sources/TFC/TFC_ADC.c **** 							
- 593:../Sources/TFC/TFC_ADC.c **** 						}
- 594:../Sources/TFC/TFC_ADC.c **** 						
- 595:../Sources/TFC/TFC_ADC.c **** 					}
- 596:../Sources/TFC/TFC_ADC.c **** 					else
- 597:../Sources/TFC/TFC_ADC.c **** 					{
- 598:../Sources/TFC/TFC_ADC.c **** 						// done with the capture sequence.  we can wait for the PIT0 IRQ to restart
- 599:../Sources/TFC/TFC_ADC.c **** 					
- 600:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_HIGH;
- 601:../Sources/TFC/TFC_ADC.c **** 											
- 602:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
- 603:../Sources/TFC/TFC_ADC.c **** 							{
- 604:../Sources/TFC/TFC_ADC.c **** 							}
- 605:../Sources/TFC/TFC_ADC.c **** 						
- 606:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_LOW;
- 607:../Sources/TFC/TFC_ADC.c **** 						CurrentADC_State = ADC_STATE_INIT;	 
- 608:../Sources/TFC/TFC_ADC.c **** 						
- 609:../Sources/TFC/TFC_ADC.c **** 						//swap the buffer
+ 580:../Sources/TFC/TFC_ADC.c **** 							
+ 581:../Sources/TFC/TFC_ADC.c **** 						}
+ 582:../Sources/TFC/TFC_ADC.c **** 						else
+ 583:../Sources/TFC/TFC_ADC.c **** 						{
+ 584:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
+ 585:../Sources/TFC/TFC_ADC.c **** 							ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 586:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanChannel = 0;
+ 587:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanPixel++;
+ 588:../Sources/TFC/TFC_ADC.c **** 							
+ 589:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_LOW;
+ 590:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
+ 591:../Sources/TFC/TFC_ADC.c **** 									{
+ 592:../Sources/TFC/TFC_ADC.c **** 									}
+ 593:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_HIGH;
+ 594:../Sources/TFC/TFC_ADC.c **** 							
+ 595:../Sources/TFC/TFC_ADC.c **** 						}
+ 596:../Sources/TFC/TFC_ADC.c **** 						
+ 597:../Sources/TFC/TFC_ADC.c **** 					}
+ 598:../Sources/TFC/TFC_ADC.c **** 					else
+ 599:../Sources/TFC/TFC_ADC.c **** 					{
+ 600:../Sources/TFC/TFC_ADC.c **** 						// done with the capture sequence.  we can wait for the PIT0 IRQ to restart
+ 601:../Sources/TFC/TFC_ADC.c **** 					
+ 602:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_HIGH;
+ 603:../Sources/TFC/TFC_ADC.c **** 											
+ 604:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
+ 605:../Sources/TFC/TFC_ADC.c **** 							{
+ 606:../Sources/TFC/TFC_ADC.c **** 							}
+ 607:../Sources/TFC/TFC_ADC.c **** 						
+ 608:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_LOW;
+ 609:../Sources/TFC/TFC_ADC.c **** 						CurrentADC_State = ADC_STATE_INIT;	 
  610:../Sources/TFC/TFC_ADC.c **** 						
- 611:../Sources/TFC/TFC_ADC.c **** 						if(LineScanWorkingBuffer == 0)
- 612:../Sources/TFC/TFC_ADC.c **** 						{
- 613:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 1;
- 614:../Sources/TFC/TFC_ADC.c **** 							
- 615:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[1][0];
- 616:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[1][0];
- 617:../Sources/TFC/TFC_ADC.c **** 							
- 618:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[0][0];
- 619:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[0][0];
- 620:../Sources/TFC/TFC_ADC.c **** 						}
- 621:../Sources/TFC/TFC_ADC.c **** 						else
- 622:../Sources/TFC/TFC_ADC.c **** 						{
- 623:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 0;
- 624:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[0][0];
- 625:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[0][0];
- 626:../Sources/TFC/TFC_ADC.c **** 							
- 627:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[1][0];
- 628:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[1][0];
- 629:../Sources/TFC/TFC_ADC.c **** 						}
- 630:../Sources/TFC/TFC_ADC.c **** 						
- 631:../Sources/TFC/TFC_ADC.c **** 						LineScanImageReady = TRUE;
- 632:../Sources/TFC/TFC_ADC.c **** 					}
- 633:../Sources/TFC/TFC_ADC.c **** 					
- 634:../Sources/TFC/TFC_ADC.c **** 					break;
- 1006              		.loc 1 634 0
+ 611:../Sources/TFC/TFC_ADC.c **** 						//swap the buffer
+ 612:../Sources/TFC/TFC_ADC.c **** 						
+ 613:../Sources/TFC/TFC_ADC.c **** 						if(LineScanWorkingBuffer == 0)
+ 614:../Sources/TFC/TFC_ADC.c **** 						{
+ 615:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 1;
+ 616:../Sources/TFC/TFC_ADC.c **** 							
+ 617:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[1][0];
+ 618:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[1][0];
+ 619:../Sources/TFC/TFC_ADC.c **** 							
+ 620:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[0][0];
+ 621:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[0][0];
+ 622:../Sources/TFC/TFC_ADC.c **** 						}
+ 623:../Sources/TFC/TFC_ADC.c **** 						else
+ 624:../Sources/TFC/TFC_ADC.c **** 						{
+ 625:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 0;
+ 626:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[0][0];
+ 627:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[0][0];
+ 628:../Sources/TFC/TFC_ADC.c **** 							
+ 629:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[1][0];
+ 630:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[1][0];
+ 631:../Sources/TFC/TFC_ADC.c **** 						}
+ 632:../Sources/TFC/TFC_ADC.c **** 						
+ 633:../Sources/TFC/TFC_ADC.c **** 						LineScanImageReady = TRUE;
+ 634:../Sources/TFC/TFC_ADC.c **** 					}
+ 635:../Sources/TFC/TFC_ADC.c **** 					
+ 636:../Sources/TFC/TFC_ADC.c **** 					break;
+ 1006              		.loc 1 636 0
  1007 0142 68E0     		b	.L39
  1008              	.L31:
- 582:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
- 1009              		.loc 1 582 0
+ 584:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
+ 1009              		.loc 1 584 0
  1010 0144 414B     		ldr	r3, .L40+44
  1011 0146 1A68     		ldr	r2, [r3]
  1012 0148 3D4B     		ldr	r3, .L40+32
@@ -1634,18 +1636,18 @@
  1018 0154 1B69     		ldr	r3, [r3, #16]
  1019 0156 9BB2     		uxth	r3, r3
  1020 0158 1380     		strh	r3, [r2]
- 583:../Sources/TFC/TFC_ADC.c **** 							ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
- 1021              		.loc 1 583 0
+ 585:../Sources/TFC/TFC_ADC.c **** 							ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
+ 1021              		.loc 1 585 0
  1022 015a 334B     		ldr	r3, .L40+8
  1023 015c 4622     		mov	r2, #70
  1024 015e 1A60     		str	r2, [r3]
- 584:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanChannel = 0;
- 1025              		.loc 1 584 0
+ 586:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanChannel = 0;
+ 1025              		.loc 1 586 0
  1026 0160 384B     		ldr	r3, .L40+36
  1027 0162 0022     		mov	r2, #0
  1028 0164 1A70     		strb	r2, [r3]
- 585:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanPixel++;
- 1029              		.loc 1 585 0
+ 587:../Sources/TFC/TFC_ADC.c **** 							CurrentLineScanPixel++;
+ 1029              		.loc 1 587 0
  1030 0166 364B     		ldr	r3, .L40+32
  1031 0168 1B78     		ldrb	r3, [r3]
  1032 016a DBB2     		uxtb	r3, r3
@@ -1653,150 +1655,150 @@
  1034 016e DAB2     		uxtb	r2, r3
  1035 0170 334B     		ldr	r3, .L40+32
  1036 0172 1A70     		strb	r2, [r3]
- 587:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_LOW;
- 1037              		.loc 1 587 0
+ 589:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_LOW;
+ 1037              		.loc 1 589 0
  1038 0174 304B     		ldr	r3, .L40+24
  1039 0176 0222     		mov	r2, #2
  1040 0178 9A60     		str	r2, [r3, #8]
- 588:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
- 1041              		.loc 1 588 0
+ 590:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
+ 1041              		.loc 1 590 0
  1042 017a FB1D     		add	r3, r7, #7
  1043 017c 0022     		mov	r2, #0
  1044 017e 1A70     		strb	r2, [r3]
  1045 0180 04E0     		b	.L33
  1046              	.L34:
- 588:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
- 1047              		.loc 1 588 0 is_stmt 0
+ 590:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
+ 1047              		.loc 1 590 0 is_stmt 0
  1048 0182 FB1D     		add	r3, r7, #7
  1049 0184 FA1D     		add	r2, r7, #7
  1050 0186 1278     		ldrb	r2, [r2]
  1051 0188 0132     		add	r2, r2, #1
  1052 018a 1A70     		strb	r2, [r3]
  1053              	.L33:
- 588:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
- 1054              		.loc 1 588 0
+ 590:../Sources/TFC/TFC_ADC.c **** 								for(Junk = 0;Junk<50;Junk++)
+ 1054              		.loc 1 590 0
  1055 018c FB1D     		add	r3, r7, #7
  1056 018e 1B78     		ldrb	r3, [r3]
  1057 0190 312B     		cmp	r3, #49
  1058 0192 F6D9     		bls	.L34
- 591:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_HIGH;
- 1059              		.loc 1 591 0 is_stmt 1
+ 593:../Sources/TFC/TFC_ADC.c **** 							TAOS_CLK_HIGH;
+ 1059              		.loc 1 593 0 is_stmt 1
  1060 0194 284B     		ldr	r3, .L40+24
  1061 0196 0222     		mov	r2, #2
  1062 0198 5A60     		str	r2, [r3, #4]
- 1063              		.loc 1 634 0
+ 1063              		.loc 1 636 0
  1064 019a 3CE0     		b	.L39
  1065              	.L30:
- 600:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_HIGH;
- 1066              		.loc 1 600 0
+ 602:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_HIGH;
+ 1066              		.loc 1 602 0
  1067 019c 264B     		ldr	r3, .L40+24
  1068 019e 0222     		mov	r2, #2
  1069 01a0 5A60     		str	r2, [r3, #4]
- 602:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
- 1070              		.loc 1 602 0
+ 604:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
+ 1070              		.loc 1 604 0
  1071 01a2 FB1D     		add	r3, r7, #7
  1072 01a4 0022     		mov	r2, #0
  1073 01a6 1A70     		strb	r2, [r3]
  1074 01a8 04E0     		b	.L35
  1075              	.L36:
- 602:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
- 1076              		.loc 1 602 0 is_stmt 0
+ 604:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
+ 1076              		.loc 1 604 0 is_stmt 0
  1077 01aa FB1D     		add	r3, r7, #7
  1078 01ac FA1D     		add	r2, r7, #7
  1079 01ae 1278     		ldrb	r2, [r2]
  1080 01b0 0132     		add	r2, r2, #1
  1081 01b2 1A70     		strb	r2, [r3]
  1082              	.L35:
- 602:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
- 1083              		.loc 1 602 0
+ 604:../Sources/TFC/TFC_ADC.c **** 						for(Junk = 0;Junk<50;Junk++)
+ 1083              		.loc 1 604 0
  1084 01b4 FB1D     		add	r3, r7, #7
  1085 01b6 1B78     		ldrb	r3, [r3]
  1086 01b8 312B     		cmp	r3, #49
  1087 01ba F6D9     		bls	.L36
- 606:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_LOW;
- 1088              		.loc 1 606 0 is_stmt 1
+ 608:../Sources/TFC/TFC_ADC.c **** 						TAOS_CLK_LOW;
+ 1088              		.loc 1 608 0 is_stmt 1
  1089 01bc 1E4B     		ldr	r3, .L40+24
  1090 01be 0222     		mov	r2, #2
  1091 01c0 9A60     		str	r2, [r3, #8]
- 607:../Sources/TFC/TFC_ADC.c **** 						CurrentADC_State = ADC_STATE_INIT;	 
- 1092              		.loc 1 607 0
+ 609:../Sources/TFC/TFC_ADC.c **** 						CurrentADC_State = ADC_STATE_INIT;	 
+ 1092              		.loc 1 609 0
  1093 01c2 174B     		ldr	r3, .L40
  1094 01c4 0022     		mov	r2, #0
  1095 01c6 1A70     		strb	r2, [r3]
- 611:../Sources/TFC/TFC_ADC.c **** 						if(LineScanWorkingBuffer == 0)
- 1096              		.loc 1 611 0
+ 613:../Sources/TFC/TFC_ADC.c **** 						if(LineScanWorkingBuffer == 0)
+ 1096              		.loc 1 613 0
  1097 01c8 214B     		ldr	r3, .L40+48
  1098 01ca 1B78     		ldrb	r3, [r3]
  1099 01cc DBB2     		uxtb	r3, r3
  1100 01ce 002B     		cmp	r3, #0
  1101 01d0 0FD1     		bne	.L37
- 613:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 1;
- 1102              		.loc 1 613 0
+ 615:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 1;
+ 1102              		.loc 1 615 0
  1103 01d2 1F4B     		ldr	r3, .L40+48
  1104 01d4 0122     		mov	r2, #1
  1105 01d6 1A70     		strb	r2, [r3]
- 615:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[1][0];
- 1106              		.loc 1 615 0
+ 617:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[1][0];
+ 1106              		.loc 1 617 0
  1107 01d8 1B4B     		ldr	r3, .L40+40
  1108 01da 1E4A     		ldr	r2, .L40+52
  1109 01dc 1A60     		str	r2, [r3]
- 616:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[1][0];
- 1110              		.loc 1 616 0
+ 618:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[1][0];
+ 1110              		.loc 1 618 0
  1111 01de 1B4B     		ldr	r3, .L40+44
  1112 01e0 1D4A     		ldr	r2, .L40+56
  1113 01e2 1A60     		str	r2, [r3]
- 618:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[0][0];
- 1114              		.loc 1 618 0
+ 620:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[0][0];
+ 1114              		.loc 1 620 0
  1115 01e4 1D4B     		ldr	r3, .L40+60
  1116 01e6 1E4A     		ldr	r2, .L40+64
  1117 01e8 1A60     		str	r2, [r3]
- 619:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[0][0];
- 1118              		.loc 1 619 0
+ 621:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[0][0];
+ 1118              		.loc 1 621 0
  1119 01ea 1E4B     		ldr	r3, .L40+68
  1120 01ec 1E4A     		ldr	r2, .L40+72
  1121 01ee 1A60     		str	r2, [r3]
  1122 01f0 0EE0     		b	.L38
  1123              	.L37:
- 623:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 0;
- 1124              		.loc 1 623 0
+ 625:../Sources/TFC/TFC_ADC.c **** 							LineScanWorkingBuffer = 0;
+ 1124              		.loc 1 625 0
  1125 01f2 174B     		ldr	r3, .L40+48
  1126 01f4 0022     		mov	r2, #0
  1127 01f6 1A70     		strb	r2, [r3]
- 624:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[0][0];
- 1128              		.loc 1 624 0
+ 626:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0WorkingBuffer = &LineScanImage0Buffer[0][0];
+ 1128              		.loc 1 626 0
  1129 01f8 134B     		ldr	r3, .L40+40
  1130 01fa 194A     		ldr	r2, .L40+64
  1131 01fc 1A60     		str	r2, [r3]
- 625:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[0][0];
- 1132              		.loc 1 625 0
+ 627:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1WorkingBuffer = &LineScanImage1Buffer[0][0];
+ 1132              		.loc 1 627 0
  1133 01fe 134B     		ldr	r3, .L40+44
  1134 0200 194A     		ldr	r2, .L40+72
  1135 0202 1A60     		str	r2, [r3]
- 627:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[1][0];
- 1136              		.loc 1 627 0
+ 629:../Sources/TFC/TFC_ADC.c **** 							LineScanImage0 = &LineScanImage0Buffer[1][0];
+ 1136              		.loc 1 629 0
  1137 0204 154B     		ldr	r3, .L40+60
  1138 0206 134A     		ldr	r2, .L40+52
  1139 0208 1A60     		str	r2, [r3]
- 628:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[1][0];
- 1140              		.loc 1 628 0
+ 630:../Sources/TFC/TFC_ADC.c **** 							LineScanImage1 = &LineScanImage1Buffer[1][0];
+ 1140              		.loc 1 630 0
  1141 020a 164B     		ldr	r3, .L40+68
  1142 020c 124A     		ldr	r2, .L40+56
  1143 020e 1A60     		str	r2, [r3]
  1144              	.L38:
- 631:../Sources/TFC/TFC_ADC.c **** 						LineScanImageReady = TRUE;
- 1145              		.loc 1 631 0
+ 633:../Sources/TFC/TFC_ADC.c **** 						LineScanImageReady = TRUE;
+ 1145              		.loc 1 633 0
  1146 0210 164B     		ldr	r3, .L40+76
  1147 0212 0122     		mov	r2, #1
  1148 0214 1A70     		strb	r2, [r3]
  1149              	.L39:
- 1150              		.loc 1 634 0
+ 1150              		.loc 1 636 0
  1151 0216 C046     		mov	r8, r8
  1152              	.L18:
- 635:../Sources/TFC/TFC_ADC.c **** 
- 636:../Sources/TFC/TFC_ADC.c **** 	}
  637:../Sources/TFC/TFC_ADC.c **** 
- 638:../Sources/TFC/TFC_ADC.c **** }
- 1153              		.loc 1 638 0
+ 638:../Sources/TFC/TFC_ADC.c **** 	}
+ 639:../Sources/TFC/TFC_ADC.c **** 
+ 640:../Sources/TFC/TFC_ADC.c **** }
+ 1153              		.loc 1 640 0
  1154 0218 BD46     		mov	sp, r7
  1155 021a 02B0     		add	sp, sp, #8
  1156              		@ sp needed for prologue
@@ -1838,11 +1840,11 @@
  1193              		.thumb_func
  1195              	TFC_ReadPot:
  1196              	.LFB7:
- 639:../Sources/TFC/TFC_ADC.c **** 
- 640:../Sources/TFC/TFC_ADC.c **** //Pot Reading is Scaled to return a value of -1.0 to 1.0
- 641:../Sources/TFC/TFC_ADC.c **** float TFC_ReadPot(uint8_t Channel)
- 642:../Sources/TFC/TFC_ADC.c **** {
- 1197              		.loc 1 642 0
+ 641:../Sources/TFC/TFC_ADC.c **** 
+ 642:../Sources/TFC/TFC_ADC.c **** //Pot Reading is Scaled to return a value of -1.0 to 1.0
+ 643:../Sources/TFC/TFC_ADC.c **** float TFC_ReadPot(uint8_t Channel)
+ 644:../Sources/TFC/TFC_ADC.c **** {
+ 1197              		.loc 1 644 0
  1198              		.cfi_startproc
  1199 0000 90B5     		push	{r4, r7, lr}
  1200              	.LCFI19:
@@ -1859,14 +1861,14 @@
  1211 0006 021C     		mov	r2, r0
  1212 0008 FB1D     		add	r3, r7, #7
  1213 000a 1A70     		strb	r2, [r3]
- 643:../Sources/TFC/TFC_ADC.c ****     if(Channel == 0)
- 1214              		.loc 1 643 0
+ 645:../Sources/TFC/TFC_ADC.c ****     if(Channel == 0)
+ 1214              		.loc 1 645 0
  1215 000c FB1D     		add	r3, r7, #7
  1216 000e 1B78     		ldrb	r3, [r3]
  1217 0010 002B     		cmp	r3, #0
  1218 0012 21D1     		bne	.L43
- 644:../Sources/TFC/TFC_ADC.c ****         return ((float)PotADC_Value[0]/-((float)ADC_MAX_CODE/2.0))+1.0;
- 1219              		.loc 1 644 0
+ 646:../Sources/TFC/TFC_ADC.c ****         return ((float)PotADC_Value[0]/-((float)ADC_MAX_CODE/2.0))+1.0;
+ 1219              		.loc 1 646 0
  1220 0014 284B     		ldr	r3, .L45+16
  1221 0016 1B88     		ldrh	r3, [r3]
  1222 0018 9BB2     		uxth	r3, r3
@@ -1897,9 +1899,9 @@
  1247 0054 031C     		add	r3, r0, #0
  1248 0056 20E0     		b	.L44
  1249              	.L43:
- 645:../Sources/TFC/TFC_ADC.c ****     else
- 646:../Sources/TFC/TFC_ADC.c ****         return ((float)PotADC_Value[1]/-((float)ADC_MAX_CODE/2.0))+1.0;
- 1250              		.loc 1 646 0
+ 647:../Sources/TFC/TFC_ADC.c ****     else
+ 648:../Sources/TFC/TFC_ADC.c ****         return ((float)PotADC_Value[1]/-((float)ADC_MAX_CODE/2.0))+1.0;
+ 1250              		.loc 1 648 0
  1251 0058 174B     		ldr	r3, .L45+16
  1252 005a 5B88     		ldrh	r3, [r3, #2]
  1253 005c 9BB2     		uxth	r3, r3
@@ -1929,8 +1931,8 @@
  1277 0094 FFF7FEFF 		bl	__aeabi_d2f
  1278 0098 031C     		add	r3, r0, #0
  1279              	.L44:
- 647:../Sources/TFC/TFC_ADC.c **** }
- 1280              		.loc 1 647 0
+ 649:../Sources/TFC/TFC_ADC.c **** }
+ 1280              		.loc 1 649 0
  1281 009a 181C     		add	r0, r3, #0
  1282 009c BD46     		mov	sp, r7
  1283 009e 03B0     		add	sp, sp, #12
@@ -1956,10 +1958,10 @@
  1303              		.thumb_func
  1305              	TFC_ReadBatteryVoltage:
  1306              	.LFB8:
- 648:../Sources/TFC/TFC_ADC.c **** 
- 649:../Sources/TFC/TFC_ADC.c **** float TFC_ReadBatteryVoltage()
- 650:../Sources/TFC/TFC_ADC.c **** {
- 1307              		.loc 1 650 0
+ 650:../Sources/TFC/TFC_ADC.c **** 
+ 651:../Sources/TFC/TFC_ADC.c **** float TFC_ReadBatteryVoltage()
+ 652:../Sources/TFC/TFC_ADC.c **** {
+ 1307              		.loc 1 652 0
  1308              		.cfi_startproc
  1309 0000 98B5     		push	{r3, r4, r7, lr}
  1310              	.LCFI22:
@@ -1971,8 +1973,8 @@
  1316 0002 00AF     		add	r7, sp, #0
  1317              	.LCFI23:
  1318              		.cfi_def_cfa_register 7
- 651:../Sources/TFC/TFC_ADC.c ****     return (((float)BatSenseADC_Value/(float)(ADC_MAX_CODE)) * 3.3 * 5.7);
- 1319              		.loc 1 651 0
+ 653:../Sources/TFC/TFC_ADC.c ****     return (((float)BatSenseADC_Value/(float)(ADC_MAX_CODE)) * 3.3 * 5.7);
+ 1319              		.loc 1 653 0
  1320 0004 184B     		ldr	r3, .L49+16
  1321 0006 1B88     		ldrh	r3, [r3]
  1322 0008 9BB2     		uxth	r3, r3
@@ -2005,8 +2007,8 @@
  1349 0048 211C     		mov	r1, r4
  1350 004a FFF7FEFF 		bl	__aeabi_d2f
  1351 004e 031C     		add	r3, r0, #0
- 652:../Sources/TFC/TFC_ADC.c **** }
- 1352              		.loc 1 652 0
+ 654:../Sources/TFC/TFC_ADC.c **** }
+ 1352              		.loc 1 654 0
  1353 0050 181C     		add	r0, r3, #0
  1354 0052 BD46     		mov	sp, r7
  1355              		@ sp needed for prologue
@@ -2029,10 +2031,10 @@
  1373              		.thumb_func
  1375              	TFC_ReadHBridgeFeedBack:
  1376              	.LFB9:
- 653:../Sources/TFC/TFC_ADC.c **** 
- 654:../Sources/TFC/TFC_ADC.c **** float TFC_ReadHBridgeFeedBack(uint8_t Channel) 
- 655:../Sources/TFC/TFC_ADC.c **** {
- 1377              		.loc 1 655 0
+ 655:../Sources/TFC/TFC_ADC.c **** 
+ 656:../Sources/TFC/TFC_ADC.c **** float TFC_ReadHBridgeFeedBack(uint8_t Channel) 
+ 657:../Sources/TFC/TFC_ADC.c **** {
+ 1377              		.loc 1 657 0
  1378              		.cfi_startproc
  1379 0000 90B5     		push	{r4, r7, lr}
  1380              	.LCFI24:
@@ -2049,14 +2051,14 @@
  1391 0006 021C     		mov	r2, r0
  1392 0008 FB1D     		add	r3, r7, #7
  1393 000a 1A70     		strb	r2, [r3]
- 656:../Sources/TFC/TFC_ADC.c ****     if(Channel == 0)
- 1394              		.loc 1 656 0
+ 658:../Sources/TFC/TFC_ADC.c ****     if(Channel == 0)
+ 1394              		.loc 1 658 0
  1395 000c FB1D     		add	r3, r7, #7
  1396 000e 1B78     		ldrb	r3, [r3]
  1397 0010 002B     		cmp	r3, #0
  1398 0012 2ED1     		bne	.L52
- 657:../Sources/TFC/TFC_ADC.c ****         return (float)HBridge_Value[0] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
- 1399              		.loc 1 657 0
+ 659:../Sources/TFC/TFC_ADC.c ****         return (float)HBridge_Value[0] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
+ 1399              		.loc 1 659 0
  1400 0014 364B     		ldr	r3, .L54+24
  1401 0016 1B88     		ldrh	r3, [r3]
  1402 0018 9BB2     		uxth	r3, r3
@@ -2098,9 +2100,9 @@
  1438 006e 031C     		add	r3, r0, #0
  1439 0070 2DE0     		b	.L53
  1440              	.L52:
- 658:../Sources/TFC/TFC_ADC.c ****     else
- 659:../Sources/TFC/TFC_ADC.c ****     	return (float)HBridge_Value[1] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
- 1441              		.loc 1 659 0
+ 660:../Sources/TFC/TFC_ADC.c ****     else
+ 661:../Sources/TFC/TFC_ADC.c ****     	return (float)HBridge_Value[1] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
+ 1441              		.loc 1 661 0
  1442 0072 1F4B     		ldr	r3, .L54+24
  1443 0074 5B88     		ldrh	r3, [r3, #2]
  1444 0076 9BB2     		uxth	r3, r3
@@ -2141,8 +2143,8 @@
  1479 00c8 FFF7FEFF 		bl	__aeabi_d2f
  1480 00cc 031C     		add	r3, r0, #0
  1481              	.L53:
- 660:../Sources/TFC/TFC_ADC.c **** }
- 1482              		.loc 1 660 0
+ 662:../Sources/TFC/TFC_ADC.c **** }
+ 1482              		.loc 1 662 0
  1483 00ce 181C     		add	r0, r3, #0
  1484 00d0 BD46     		mov	sp, r7
  1485 00d2 03B0     		add	sp, sp, #12
@@ -2164,50 +2166,50 @@
  1502              		.text
  1503              	.Letext0:
  1504              		.file 2 "C:/Freescale/CW MCU v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cstdint"
- 1505              		.file 3 "H:/git1/FRDM-TFC/Project_Headers/MKL25Z4.h"
- 1506              		.file 4 "H:/git1/FRDM-TFC/Project_Headers/TFC\\TFC_LineScanCamera.h"
+ 1505              		.file 3 "H:/git2/FRDM-TFC/Project_Headers/MKL25Z4.h"
+ 1506              		.file 4 "H:/git2/FRDM-TFC/Project_Headers/TFC\\TFC_LineScanCamera.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 TFC_ADC.c
                             *COM*:00000004 PotADC_Value
                             *COM*:00000004 HBridge_Value
                             *COM*:00000002 BatSenseADC_Value
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:23     .bss.CurrentADC_State:00000000 CurrentADC_State
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:24     .bss.CurrentADC_State:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:29     .bss.CurrentLineScanPixel:00000000 CurrentLineScanPixel
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:30     .bss.CurrentLineScanPixel:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:35     .bss.CurrentLineScanChannel:00000000 CurrentLineScanChannel
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:36     .bss.CurrentLineScanChannel:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:38     .text.ADC_Cal:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:43     .text.ADC_Cal:00000000 ADC_Cal
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:310    .text.ADC_Cal:000001b0 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:315    .text.ADC_Config_Alt:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:320    .text.ADC_Config_Alt:00000000 ADC_Config_Alt
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:394    .text.ADC_Read_Cal:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:399    .text.ADC_Read_Cal:00000000 ADC_Read_Cal
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:527    .text.InitADC0:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:532    .text.InitADC0:00000000 InitADC0
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:625    .text.InitADC0:00000084 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:632    .text.TFC_InitADCs:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:637    .text.TFC_InitADCs:00000000 TFC_InitADCs
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:702    .text.TFC_InitADCs:0000005c $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:711    .text.PIT_IRQHandler:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:716    .text.PIT_IRQHandler:00000000 PIT_IRQHandler
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:760    .text.PIT_IRQHandler:00000030 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:768    .text.ADC0_IRQHandler:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:773    .text.ADC0_IRQHandler:00000000 ADC0_IRQHandler
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:799    .rodata.ADC0_IRQHandler:00000000 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1161   .text.ADC0_IRQHandler:00000220 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1190   .text.TFC_ReadPot:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1195   .text.TFC_ReadPot:00000000 TFC_ReadPot
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1289   .text.TFC_ReadPot:000000a8 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1300   .text.TFC_ReadBatteryVoltage:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1305   .text.TFC_ReadBatteryVoltage:00000000 TFC_ReadBatteryVoltage
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1360   .text.TFC_ReadBatteryVoltage:00000058 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1370   .text.TFC_ReadHBridgeFeedBack:00000000 $t
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1375   .text.TFC_ReadHBridgeFeedBack:00000000 TFC_ReadHBridgeFeedBack
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1491   .text.TFC_ReadHBridgeFeedBack:000000d8 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:23     .bss.CurrentADC_State:00000000 CurrentADC_State
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:24     .bss.CurrentADC_State:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:29     .bss.CurrentLineScanPixel:00000000 CurrentLineScanPixel
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:30     .bss.CurrentLineScanPixel:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:35     .bss.CurrentLineScanChannel:00000000 CurrentLineScanChannel
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:36     .bss.CurrentLineScanChannel:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:38     .text.ADC_Cal:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:43     .text.ADC_Cal:00000000 ADC_Cal
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:310    .text.ADC_Cal:000001b0 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:315    .text.ADC_Config_Alt:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:320    .text.ADC_Config_Alt:00000000 ADC_Config_Alt
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:394    .text.ADC_Read_Cal:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:399    .text.ADC_Read_Cal:00000000 ADC_Read_Cal
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:527    .text.InitADC0:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:532    .text.InitADC0:00000000 InitADC0
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:625    .text.InitADC0:00000084 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:632    .text.TFC_InitADCs:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:637    .text.TFC_InitADCs:00000000 TFC_InitADCs
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:702    .text.TFC_InitADCs:0000005c $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:711    .text.PIT_IRQHandler:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:716    .text.PIT_IRQHandler:00000000 PIT_IRQHandler
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:760    .text.PIT_IRQHandler:00000030 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:768    .text.ADC0_IRQHandler:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:773    .text.ADC0_IRQHandler:00000000 ADC0_IRQHandler
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:799    .rodata.ADC0_IRQHandler:00000000 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1161   .text.ADC0_IRQHandler:00000220 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1190   .text.TFC_ReadPot:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1195   .text.TFC_ReadPot:00000000 TFC_ReadPot
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1289   .text.TFC_ReadPot:000000a8 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1300   .text.TFC_ReadBatteryVoltage:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1305   .text.TFC_ReadBatteryVoltage:00000000 TFC_ReadBatteryVoltage
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1360   .text.TFC_ReadBatteryVoltage:00000058 $d
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1370   .text.TFC_ReadHBridgeFeedBack:00000000 $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1375   .text.TFC_ReadHBridgeFeedBack:00000000 TFC_ReadHBridgeFeedBack
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1491   .text.TFC_ReadHBridgeFeedBack:000000d8 $d
                      .debug_frame:00000010 $d
-C:\Users\p746\AppData\Local\Temp\ccA87ifu.s:1299   .text.TFC_ReadPot:000000bc $t
+C:\Users\p746\AppData\Local\Temp\ccyIzAAt.s:1299   .text.TFC_ReadPot:000000bc $t
 
 UNDEFINED SYMBOLS
 disable_irq

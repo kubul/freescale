@@ -6,14 +6,15 @@
 
 
 void Init_I2C();
-signed int ReadShort(char * r);
 void Init_Accel();
+void Init_Interrupts();
 
 int main(void) {
-	
+
 	TFC_Init();
 	Init_I2C();
 	Init_Accel();
+	Init_Interrupts();
 	Init_Demo();
 
 	for(;;) {
@@ -31,7 +32,25 @@ int main(void) {
 	return 0;
 }
 
+void Init_Interrupts() {
+	EnableInterrupts;
+	int irq_num = INT_PORTA - 16;   // enable IRQ on PORTA 
+	enable_irq(irq_num);
+	//NVIC_ICPR |= 1 << irq_num;  //Clear any pending interrupts on PORTA
+	//NVIC_ISER |= 1 << irq_num;  //Enable interrupts from PORTA
+	//NVIC_IPR7 |= // Set interrupt priority
+}
 
+
+
+void PORTA_IRQHandler() {  
+	PORTA_ISFR=0xFFFFFFFF;
+	TFC_SetMotorPWM(0,0); //Make sure motors are off
+	TFC_HBRIDGE_DISABLE;
+	TFC_BAT_LED0_ON;
+	I2CReadRegister(MMA8451_I2C_ADDRESS, INT_SOURCE);
+	I2CReadRegister(MMA8451_I2C_ADDRESS, PULSE_SRC);
+} 
 
 // EXAMPLES
 
