@@ -10,8 +10,8 @@ void TFC_SetLineScanExposureTime(uint32_t  TimeIn_uS);
 
 #define TAOS_CLK_HIGH  GPIOC_PSOR = (1<<4)  
 #define TAOS_CLK_LOW   GPIOC_PCOR = (1<<4)  
-#define TAOS_SI_HIGH   GPIOA_PSOR = (1<<0)
-#define TAOS_SI_LOW    GPIOA_PCOR =	(1<<0)
+#define TAOS_SI_HIGH   GPIOD_PSOR = (1<<1)
+#define TAOS_SI_LOW    GPIOD_PCOR =	(1<<1)
 
 extern volatile uint16_t  *LineScanImage0WorkingBuffer;
 extern volatile uint16_t  *LineScanImage0;

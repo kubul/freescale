@@ -89,7 +89,7 @@
 #define ADICLK_ALTCLK     0x02
 #define ADICLK_ADACK      0x03
 
-//// ADCCFG2
+//// ADCCFG2 
 
 // Select between B or A channels
 #define MUXSEL_ADCB       ADC_CFG2_MUXSEL_MASK
@@ -244,13 +244,15 @@ void ADC_Config_Alt(ADC_MemMapPtr, tADC_ConfigPtr);
 void ADC_Read_Cal(ADC_MemMapPtr, tADC_Cal_Blk *);
 
 #define ADC_STATE_INIT							0
+
 #define ADC_STATE_CAPTURE_POT_0			        1
 #define ADC_STATE_CAPTURE_POT_1			        2
-#define ADC_STATE_CAPTURE_BATTERY_LEVEL			3
-#define ADC_STATE_CAPTURE_HBRIDGE_A			    4
-#define ADC_STATE_CAPTURE_HBRIDGE_B  	        5
-#define ADC_STATE_CAPTURE_LINE_SCAN		        6
+#define ADC_STATE_CAPTURE_HBRIDGE_A			    3
+#define ADC_STATE_CAPTURE_HBRIDGE_B  	        4
 
+
+#define ADC_STATE_CAPTURE_BATTERY_LEVEL			5
+#define ADC_STATE_CAPTURE_LINE_SCAN		        6
 
 volatile uint16_t PotADC_Value[2];
 volatile uint16_t HBridge_Value[2];
@@ -382,6 +384,9 @@ void InitADC()
 
 	SIM_SCGC6 |= SIM_SCGC6_ADC0_MASK;
 	SIM_SCGC3 |= SIM_SCGC3_ADC1_MASK;
+	
+	PORTB_PCR11 = PORT_PCR_MUX(0);
+	PORTB_PCR10 = PORT_PCR_MUX(0);
 
 	//Lets calibrate the ADC. 1st setup how the channel will be used.
 
@@ -462,7 +467,7 @@ void TFC_InitADCs()
 	//This is done to automate the linescan capture on Channel 0 to ensure that timing is very even
 	CurrentADC0_State =	ADC_STATE_INIT;	
 	CurrentADC1_State =	ADC_STATE_INIT;	
-
+	
 	//The pump will be primed with the PIT interrupt.  upon timeout/interrupt it will set the SI signal high
 	//for the camera and then start the conversions for the pots.
 
@@ -489,7 +494,7 @@ void TFC_InitADCs()
 void PIT0_IRQHandler()
 {
 	PIT_TFLG0 = PIT_TFLG_TIF_MASK; //Turn off the Pit 0 Irq flag 
-
+	
 	TAOS_SI_HIGH;
 	//Prime the ADC pump and start capturing
 	CurrentADC0_State = ADC_STATE_CAPTURE_BATTERY_LEVEL;
@@ -526,7 +531,7 @@ void ADC0_IRQHandler()
 
 		TAOS_CLK_HIGH;
 
-		for(Junk = 0;Junk<50;Junk++)
+		for(Junk = 0;Junk<125;Junk++)
 		{
 		}
 
@@ -546,10 +551,12 @@ void ADC0_IRQHandler()
 			CurrentLineScanPixel++;
 
 			TAOS_CLK_LOW;
-			for(Junk = 0;Junk<50;Junk++)
+			for(Junk = 0;Junk<125;Junk++)
 			{
 			}
 			TAOS_CLK_HIGH;
+			
+			ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
 
 		}
 		else
@@ -558,7 +565,7 @@ void ADC0_IRQHandler()
 
 			TAOS_CLK_HIGH;
 
-			for(Junk = 0;Junk<50;Junk++)
+			for(Junk = 0;Junk<125;Junk++)
 			{
 			}
 
@@ -592,7 +599,7 @@ void ADC0_IRQHandler()
 
 void ADC1_IRQHandler()
 {
-	/*
+	
 	uint8_t Junk;
 	switch(CurrentADC1_State)
 	{
@@ -644,7 +651,7 @@ void ADC1_IRQHandler()
 
 
 	}
-*/
+
 }
 
 //Pot Reading is Scaled to return a value of -1.0 to 1.0

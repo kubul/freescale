@@ -7,6 +7,7 @@ void TFC_InitADCs();
 
 void PIT0_IRQ();
 void ADC0_IRQ();
+void ADC1_IRQ();
 
 float TFC_ReadPot(uint8_t Channel);
 float TFC_ReadBatteryVoltage();

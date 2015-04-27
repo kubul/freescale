@@ -38,11 +38,11 @@ void TFC_InitGPIO()
     GPIOC_PDDR |=  TFC_BAT_LED0_LOC | TFC_BAT_LED1_LOC;
     GPIOB_PDDR |=  TFC_BAT_LED2_LOC | TFC_BAT_LED3_LOC;
 
-    TFC_SetBatteryLED_Level(0);
+   // TFC_SetBatteryLED_Level(0);
     TFC_HBRIDGE_DISABLE;
     
 }
-
+/*
 
 void TFC_SetBatteryLED_Level(uint8_t BattLevel)
 {
@@ -74,7 +74,7 @@ void TFC_SetBatteryLED_Level(uint8_t BattLevel)
 		
 	}
 }
-
+*/
 
 uint8_t TFC_GetDIP_Switch()
 {

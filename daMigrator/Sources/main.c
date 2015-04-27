@@ -10,8 +10,8 @@ void Init_Accel();
 void Init_Interrupts();
 
 int main(void) {
-	int t1;
-	int t0; 
+	float t1;
+	float t0; 
 	float x = 0;
 
 	TFC_Init();
@@ -19,65 +19,20 @@ int main(void) {
 	Init_Accel();
 	Init_Interrupts();
 	Init_Demo();
-
+	
 	for(;;) {
 		//TFC_Task must be called in your main loop.  This keeps certain processing happy (I.E. Serial port queue check)
 		TFC_Task();
-		//TFC_SetMotorPWM(x,x);
-		//t0 = TFC_ReadPot(0);
-		//t1 = TFC_ReadPot(1);
 		
-
 		if(TFC_GetDIP_Switch()&0x01) {
-			
-			x = TFC_ReadBatteryVoltage();
-			t0 = (int)((x/7)*4);
-			if (t0 == 0) {
-				TFC_BAT_LED0_ON;
-				TFC_BAT_LED1_OFF;
-				TFC_BAT_LED2_OFF;
-				TFC_BAT_LED3_OFF;
-			} else if (t0 == 1) {
-				TFC_BAT_LED0_OFF;
-				TFC_BAT_LED1_ON;
-				TFC_BAT_LED2_OFF;
-				TFC_BAT_LED3_OFF;
-			} else if (t0 == 2) {
-				TFC_BAT_LED0_OFF;
-				TFC_BAT_LED1_OFF;
-				TFC_BAT_LED2_ON;
-				TFC_BAT_LED3_OFF;
-			} else if (t0 == 3) {
-				TFC_BAT_LED0_OFF;
-				TFC_BAT_LED1_OFF;
-				TFC_BAT_LED2_OFF;
-				TFC_BAT_LED3_ON;
-			}
-			//TFC_SetServo(t0);
-			
-			
-			/*
-			if (t1 > 0) {
-				//TFC_BAT_LED0_ON;
-				TFC_BAT_LED1_ON;
-				//TFC_BAT_LED2_OFF;
-				TFC_BAT_LED3_OFF;
-			} else {
-				//TFC_BAT_LED0_OFF;
-				TFC_BAT_LED1_OFF;
-				//TFC_BAT_LED2_ON;
-				TFC_BAT_LED3_ON;
-			}
-			*/
 			// Run MCP
 			//MasterControlProgram();
-			//TFC_SetServo(-0.5);
-
+	
+		
 		} else {
 			
-			
 			// Run Demo Program
-			//DemoProgram();
+			DemoProgram();
 		}
 	}
 	return 0;

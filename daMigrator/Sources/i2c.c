@@ -143,17 +143,17 @@ signed int ReadShort(char * r)
 }
 void Init_Accel() 
 {
-	/*
+	
 	//enable_irq(INT_PORTE - 16);
 	//I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_CFG, 0x44); //enable single tap detection on Y axis
 	//I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_THSY, 0x64); //set Y axis tap threshold (x of 127)
 	//I2CWriteRegister(MMA8451_I2C_ADDRESS, HP_FILTER_CUTOFF, 0x10); //enable LPF
 	//I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG3, 0x02); //make interrupt polarity active HIGH
-	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG4, 0x08); //enable pulse interrupts
-	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG5, 0x08); //map pulse interrupt to pin INT1 (PTC6)
-	I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_TMLT, 0x0); //time window to register pulse
+	//I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG4, 0x08); //enable pulse interrupts
+	//I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG5, 0x08); //map pulse interrupt to pin INT1 (PTC6)
+	//I2CWriteRegister(MMA8451_I2C_ADDRESS, PULSE_TMLT, 0x0); //time window to register pulse
 	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG1, 0x01); //start accel
 	
-	*/
+	
 	
 }

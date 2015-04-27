@@ -30,7 +30,7 @@ void TFC_UART_Process()
 }
 
 
-void UART0_IRQHandler()
+void UART0_Status_IRQHandler()
 {
 	uint8_t Temp;
 
