@@ -1,85 +1,77 @@
 #include "TFC\TFC.h"
 
-void UART1_init (int sysclk, int baud);
+void UART0_init (int sysclk, int baud);
 
 ByteQueue SDA_SERIAL_OUTGOING_QUEUE;
 ByteQueue SDA_SERIAL_INCOMING_QUEUE;
 
-
 uint8_t SDA_SERIAL_OUTGOING_QUEUE_Storage[SDA_SERIAL_OUTGOING_QUEUE_SIZE];
 uint8_t SDA_SERIAL_INCOMING_QUEUE_Storage[SDA_SERIAL_INCOMING_QUEUE_SIZE];
 
-
 void TFC_InitUARTs()
 {
-	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;
-
+	
 	InitByteQueue(&SDA_SERIAL_OUTGOING_QUEUE,SDA_SERIAL_OUTGOING_QUEUE_SIZE,SDA_SERIAL_OUTGOING_QUEUE_Storage);
 	InitByteQueue(&SDA_SERIAL_INCOMING_QUEUE,SDA_SERIAL_INCOMING_QUEUE_SIZE,SDA_SERIAL_INCOMING_QUEUE_Storage);
-
-	PORTB_PCR16 = PORT_PCR_MUX(3) | PORT_PCR_DSE_MASK;   
-	PORTB_PCR17 = PORT_PCR_MUX(3) | PORT_PCR_DSE_MASK;  
-
-	/*
-	//Select PLL/2 Clock
-	SIM_SOPT2 &= ~(3<<26);
-	SIM_SOPT2 |= SIM_SOPT2_UART1SRC(1); 
-	SIM_SOPT2 |= SIM_SOPT2_PLLFLLSEL_MASK;
-	*/
-	
+		
 	//We have to feed this function the clock in KHz!
-	UART1_init (CORE_CLOCK, SDA_SERIAL_BAUD);
+	UART0_init(CORE_CLOCK, SDA_SERIAL_BAUD);
+	
 	//Enable recieve interrupts
-
-	UART1_C2 |= UART_C2_RIE_MASK;
-	enable_irq(INT_UART1_RX_TX-16);
+	UART0_C2 |= UART_C2_RIE_MASK;
+	enable_irq(INT_UART0_RX_TX-16);
 
 }
 
 void TFC_UART_Process()
 {
-	if(BytesInQueue(&SDA_SERIAL_OUTGOING_QUEUE)>0 && (UART1_S1 & UART_S1_TDRE_MASK))
-		UART1_C2 |= UART_C2_TIE_MASK; //Enable Transmitter Interrupts
+	if(BytesInQueue(&SDA_SERIAL_OUTGOING_QUEUE)>0 && (UART0_S1 & UART_S1_TDRE_MASK))
+		UART0_C2 |= UART_C2_TIE_MASK; //Enable Transmitter Interrupts
 }
 
 
-void UART1_IRQHandler()
+void UART0_IRQHandler()
 {
 	uint8_t Temp;
 
-	if(UART1_S1 & UART_S1_RDRF_MASK)
+	if(UART0_S1 & UART_S1_RDRF_MASK)
 	{
-		ByteEnqueue(&SDA_SERIAL_INCOMING_QUEUE,UART1_D);
+		ByteEnqueue(&SDA_SERIAL_INCOMING_QUEUE,UART0_D);
 	}
-	if(UART1_S1 & UART_S1_TDRE_MASK)
+	if(UART0_S1 & UART_S1_TDRE_MASK)
 	{
 		if(BytesInQueue(&SDA_SERIAL_OUTGOING_QUEUE)>0)
 		{
 			ByteDequeue(&SDA_SERIAL_OUTGOING_QUEUE,&Temp);
-			UART1_D = Temp;
+			UART0_D = Temp;
 		}
 		else
 		{
 			//if there is nothing left in the queue then disable interrupts
-			UART1_C2 &= ~UART_C2_TIE_MASK; //Disable the  Interrupts
+			UART0_C2 &= ~UART_C2_TIE_MASK; //Disable the  Interrupts
 		}
 	}
 }
 
 
-
-void UART1_init (int sysclk, int baud)
+void UART0_init (int sysclk, int baud)
 {
 	uint32 sbr_val;
 	uint32 baud_rate;
 	uint32 temp = 0;
 	uint32 brfa = 0;
 
-	SIM_SCGC4 |= SIM_SCGC4_UART1_MASK;
+	SIM_SCGC4 |= SIM_SCGC4_UART0_MASK;      /*Enable the UART clock*/
+	SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;		/*Enable the PORTB clock*/
+	PORTB_PCR16 |= PORT_PCR_MUX(3);
+	PORTB_PCR17 |= PORT_PCR_MUX(3);
 
 	// Disable UART1 before changing registers
-	UART1_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
+	UART0_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
 
+	/* Configure the UART for 8-bit mode, no parity */
+	UART0_C1 = 0; 		/*Dafault settings of the register*/
+	
 	// Initialize baud rate
 	baud_rate = baud;
 
@@ -87,24 +79,21 @@ void UART1_init (int sysclk, int baud)
 	sbr_val = (uint16)(sysclk/(baud_rate * 16));
 
 	/* Save off the current value of the UARTx_BDH except for the SBR field */
-	temp = UART1_BDH & ~(UART_BDH_SBR(0x1F));
+	temp = UART0_BDH & ~(UART_BDH_SBR(0x1F));
 
-	UART1_BDH = temp |  UART_BDH_SBR(((sbr_val & 0x1F00) >> 8));
-	UART1_BDL = (uint8)(sbr_val & UART_BDL_SBR_MASK);
+	UART0_BDH = temp |  UART_BDH_SBR(((sbr_val & 0x1F00) >> 8));
+	UART0_BDL = (uint8)(sbr_val & UART_BDL_SBR_MASK);
 
 	/* Determine if a fractional divider is needed to get closer to the baud rate */
-	brfa = (((sysclk*32)/(baud_rate * 16)) - (sbr_val * 32));
+	brfa = (((sysclk*2)/baud_rate) - (sbr_val * 32));
 
 	/* Save off the current value of the UARTx_C4 register except for the BRFA field */
-	temp = UART1_C4 & ~(UART_C4_BRFA(0x1F));
+	temp = UART0_C4 & ~(UART_C4_BRFA(0x1F));
 
-	UART1_C4 = temp |  UART_C4_BRFA(brfa);    
-
-	/* Enable receiver and transmitter */
-	UART1_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
+	UART0_C4 = temp |  UART_C4_BRFA(brfa);    
 
 	/* Enable receiver and transmitter */
-	UART1_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
+	UART0_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
 
 }
 
