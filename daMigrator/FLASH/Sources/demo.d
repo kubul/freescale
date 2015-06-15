@@ -45,6 +45,8 @@ Sources/demo.o: ../Sources/demo.c \
  H:/git2/daMigrator/Project_Headers/TFC\TFC_Queue.h \
  H:/git2/daMigrator/Project_Headers/TFC\TFC_UART.h \
  H:/git2/daMigrator/Project_Headers/TFC\TFC_Terminal.h \
+ H:/git2/daMigrator/Project_Headers/TFC\TFC_i2c.h \
+ H:/git2/daMigrator/Project_Headers/TFC\TFC_DMA.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/math.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cmath \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cfloat \
@@ -55,8 +57,7 @@ Sources/demo.o: ../Sources/demo.c \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/math_inlines.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/math_config.h \
  C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/arm/math.ARM.h \
- C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno \
- ../Sources/i2c.h
+ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix:
 
@@ -152,6 +153,10 @@ H:/git2/daMigrator/Project_Headers/TFC\TFC_UART.h:
 
 H:/git2/daMigrator/Project_Headers/TFC\TFC_Terminal.h:
 
+H:/git2/daMigrator/Project_Headers/TFC\TFC_i2c.h:
+
+H:/git2/daMigrator/Project_Headers/TFC\TFC_DMA.h:
+
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/math.h:
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cmath:
@@ -173,5 +178,3 @@ C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/math_config.h:
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/arm/math.ARM.h:
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/cerrno:
-
-../Sources/i2c.h:

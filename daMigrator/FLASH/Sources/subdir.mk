@@ -8,49 +8,42 @@
 C_SRCS_QUOTED += \
 "../Sources/Spices.c" \
 "../Sources/demo.c" \
-"../Sources/i2c.c" \
 "../Sources/main.c" \
 "../Sources/sa_mtb.c" \
 
 C_SRCS += \
 ../Sources/Spices.c \
 ../Sources/demo.c \
-../Sources/i2c.c \
 ../Sources/main.c \
 ../Sources/sa_mtb.c \
 
 OBJS += \
 ./Sources/Spices.o \
 ./Sources/demo.o \
-./Sources/i2c.o \
 ./Sources/main.o \
 ./Sources/sa_mtb.o \
 
 C_DEPS += \
 ./Sources/Spices.d \
 ./Sources/demo.d \
-./Sources/i2c.d \
 ./Sources/main.d \
 ./Sources/sa_mtb.d \
 
 OBJS_QUOTED += \
 "./Sources/Spices.o" \
 "./Sources/demo.o" \
-"./Sources/i2c.o" \
 "./Sources/main.o" \
 "./Sources/sa_mtb.o" \
 
 C_DEPS_QUOTED += \
 "./Sources/Spices.d" \
 "./Sources/demo.d" \
-"./Sources/i2c.d" \
 "./Sources/main.d" \
 "./Sources/sa_mtb.d" \
 
 OBJS_OS_FORMAT += \
 ./Sources/Spices.o \
 ./Sources/demo.o \
-./Sources/i2c.o \
 ./Sources/main.o \
 ./Sources/sa_mtb.o \
 
@@ -72,17 +65,9 @@ Sources/demo.o: ../Sources/demo.c
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Sources/i2c.o: ../Sources/i2c.c
-	@echo 'Building file: $<'
-	@echo 'Executing target #3 $<'
-	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/i2c.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/i2c.o"
-	@echo 'Finished building: $<'
-	@echo ' '
-
 Sources/main.o: ../Sources/main.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #4 $<'
+	@echo 'Executing target #3 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/main.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/main.o"
 	@echo 'Finished building: $<'
@@ -90,7 +75,7 @@ Sources/main.o: ../Sources/main.c
 
 Sources/sa_mtb.o: ../Sources/sa_mtb.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #5 $<'
+	@echo 'Executing target #4 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/sa_mtb.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/sa_mtb.o"
 	@echo 'Finished building: $<'

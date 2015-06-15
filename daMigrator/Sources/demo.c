@@ -5,7 +5,6 @@
 //ACCEL
 
 char accel[6];
-uint8_t interrupt_source;
 
 //CAMERA
 
@@ -44,7 +43,9 @@ void Init_Demo() {
 
 
 int DemoProgram() {
-
+ 
+	int temp;
+	
 	switch((TFC_GetDIP_Switch()>>1)&0x03) {
 
 	default:
@@ -67,6 +68,7 @@ int DemoProgram() {
 		}
 
 		if(TFC_PUSH_BUTTON_1_PRESSED) {
+		
 			TFC_SetMotorPWM(0,0);
 			TFC_HBRIDGE_DISABLE;
 		}
@@ -113,17 +115,14 @@ int DemoProgram() {
 
 		//ACCELEROMETER
 
-		if(TFC_Ticker[3] >= 10)
-		{
-			TFC_Ticker[3] = 0;
+		//if(TFC_Ticker[3] >= 20)
+		//{
+			//TFC_Ticker[3] = 0;
 
-			//interrupt_source = TFC_GetAccelInterrupts(); Still exists as example of reading GPIO
 
-			//TERMINAL_PRINTF("\r\n");
-			//TERMINAL_PRINTF("Interrupt pins: 1: %d, 2: %d", (int)(interrupt_source&0x1), (int)(interrupt_source>>1));
 
 			//Get accelerometer info
-
+			/*
 			I2CReadMultiRegisters(MMA8451_I2C_ADDRESS, OUT_X_MSB, 6, accel);
 
 			if (packet_index == 0) {
@@ -133,8 +132,23 @@ int DemoProgram() {
 				//TERMINAL_PRINTF("a);
 				//TERMINAL_PRINTF("\r\n");
 			}
-		}
+			*/
+			//sprintf(packet+packet_index, "%6d%6d%6d", DATA_BUFFER[0], DATA_BUFFER[1], DATA_BUFFER[2]);
+			//packet_index = packet_index + 18;
+		//	TERMINAL_PRINTF("%6d\r\n",DATA_BUFFER[0]);
+			
+		//	TERMINAL_PRINTF("\r\n");
+		//	TERMINAL_PRINTF("Interrupt pins: 1: %d, 2: %d", (int)(temp&0x1), (int)(temp>>1));
+			
+		//}
+		//temp = TFC_GetAccelInterrupts(); //Still exists as example of reading GPIO
 
+		//TERMINAL_PRINTF("%d\r\n",(int) DMA_CSR_REG(DMA_BASE_PTR,0));
+		//TERMINAL_PRINTF("%6d\r\n",DATA_BUFFER[0]);
+		//DMA_ES_REG
+		
+		
+		
 		//CAMERA
 
 		if((TFC_Ticker[4] >= 100) && LineScanImageReady==1) 
@@ -199,11 +213,18 @@ int DemoProgram() {
 		break;
 		
 	}
+	
+	if(TFC_Ticker[3] >= 22)
+	{
+		TFC_Ticker[3] = 0;
+		FIFO_Dump();
+	}
+	
 	if (packet_index > 42 ) {		
 		packet[packet_index] = 0;
 		packet_index = 0;
-		TERMINAL_PRINTF(packet);
-		TERMINAL_PRINTF("\r\n");
+		//TERMINAL_PRINTF(packet);
+		//TERMINAL_PRINTF("\r\n");
 	}
 	return 0;
 }

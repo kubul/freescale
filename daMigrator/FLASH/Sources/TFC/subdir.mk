@@ -10,6 +10,7 @@ C_SRCS_QUOTED += \
 "../Sources/TFC/TFC_ADC.c" \
 "../Sources/TFC/TFC_BoardSupport.c" \
 "../Sources/TFC/TFC_CrystalClock.c" \
+"../Sources/TFC/TFC_DMA.c" \
 "../Sources/TFC/TFC_LineScanCamera.c" \
 "../Sources/TFC/TFC_Motor.c" \
 "../Sources/TFC/TFC_Queue.c" \
@@ -18,12 +19,14 @@ C_SRCS_QUOTED += \
 "../Sources/TFC/TFC_Terminal.c" \
 "../Sources/TFC/TFC_UART.c" \
 "../Sources/TFC/TFC_arm_cm4.c" \
+"../Sources/TFC/TFC_i2c.c" \
 
 C_SRCS += \
 ../Sources/TFC/TFC.c \
 ../Sources/TFC/TFC_ADC.c \
 ../Sources/TFC/TFC_BoardSupport.c \
 ../Sources/TFC/TFC_CrystalClock.c \
+../Sources/TFC/TFC_DMA.c \
 ../Sources/TFC/TFC_LineScanCamera.c \
 ../Sources/TFC/TFC_Motor.c \
 ../Sources/TFC/TFC_Queue.c \
@@ -32,12 +35,14 @@ C_SRCS += \
 ../Sources/TFC/TFC_Terminal.c \
 ../Sources/TFC/TFC_UART.c \
 ../Sources/TFC/TFC_arm_cm4.c \
+../Sources/TFC/TFC_i2c.c \
 
 OBJS += \
 ./Sources/TFC/TFC.o \
 ./Sources/TFC/TFC_ADC.o \
 ./Sources/TFC/TFC_BoardSupport.o \
 ./Sources/TFC/TFC_CrystalClock.o \
+./Sources/TFC/TFC_DMA.o \
 ./Sources/TFC/TFC_LineScanCamera.o \
 ./Sources/TFC/TFC_Motor.o \
 ./Sources/TFC/TFC_Queue.o \
@@ -46,12 +51,14 @@ OBJS += \
 ./Sources/TFC/TFC_Terminal.o \
 ./Sources/TFC/TFC_UART.o \
 ./Sources/TFC/TFC_arm_cm4.o \
+./Sources/TFC/TFC_i2c.o \
 
 C_DEPS += \
 ./Sources/TFC/TFC.d \
 ./Sources/TFC/TFC_ADC.d \
 ./Sources/TFC/TFC_BoardSupport.d \
 ./Sources/TFC/TFC_CrystalClock.d \
+./Sources/TFC/TFC_DMA.d \
 ./Sources/TFC/TFC_LineScanCamera.d \
 ./Sources/TFC/TFC_Motor.d \
 ./Sources/TFC/TFC_Queue.d \
@@ -60,12 +67,14 @@ C_DEPS += \
 ./Sources/TFC/TFC_Terminal.d \
 ./Sources/TFC/TFC_UART.d \
 ./Sources/TFC/TFC_arm_cm4.d \
+./Sources/TFC/TFC_i2c.d \
 
 OBJS_QUOTED += \
 "./Sources/TFC/TFC.o" \
 "./Sources/TFC/TFC_ADC.o" \
 "./Sources/TFC/TFC_BoardSupport.o" \
 "./Sources/TFC/TFC_CrystalClock.o" \
+"./Sources/TFC/TFC_DMA.o" \
 "./Sources/TFC/TFC_LineScanCamera.o" \
 "./Sources/TFC/TFC_Motor.o" \
 "./Sources/TFC/TFC_Queue.o" \
@@ -74,12 +83,14 @@ OBJS_QUOTED += \
 "./Sources/TFC/TFC_Terminal.o" \
 "./Sources/TFC/TFC_UART.o" \
 "./Sources/TFC/TFC_arm_cm4.o" \
+"./Sources/TFC/TFC_i2c.o" \
 
 C_DEPS_QUOTED += \
 "./Sources/TFC/TFC.d" \
 "./Sources/TFC/TFC_ADC.d" \
 "./Sources/TFC/TFC_BoardSupport.d" \
 "./Sources/TFC/TFC_CrystalClock.d" \
+"./Sources/TFC/TFC_DMA.d" \
 "./Sources/TFC/TFC_LineScanCamera.d" \
 "./Sources/TFC/TFC_Motor.d" \
 "./Sources/TFC/TFC_Queue.d" \
@@ -88,12 +99,14 @@ C_DEPS_QUOTED += \
 "./Sources/TFC/TFC_Terminal.d" \
 "./Sources/TFC/TFC_UART.d" \
 "./Sources/TFC/TFC_arm_cm4.d" \
+"./Sources/TFC/TFC_i2c.d" \
 
 OBJS_OS_FORMAT += \
 ./Sources/TFC/TFC.o \
 ./Sources/TFC/TFC_ADC.o \
 ./Sources/TFC/TFC_BoardSupport.o \
 ./Sources/TFC/TFC_CrystalClock.o \
+./Sources/TFC/TFC_DMA.o \
 ./Sources/TFC/TFC_LineScanCamera.o \
 ./Sources/TFC/TFC_Motor.o \
 ./Sources/TFC/TFC_Queue.o \
@@ -102,12 +115,13 @@ OBJS_OS_FORMAT += \
 ./Sources/TFC/TFC_Terminal.o \
 ./Sources/TFC/TFC_UART.o \
 ./Sources/TFC/TFC_arm_cm4.o \
+./Sources/TFC/TFC_i2c.o \
 
 
 # Each subdirectory must supply rules for building sources it contributes
 Sources/TFC/TFC.o: ../Sources/TFC/TFC.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #6 $<'
+	@echo 'Executing target #5 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC.o"
 	@echo 'Finished building: $<'
@@ -115,7 +129,7 @@ Sources/TFC/TFC.o: ../Sources/TFC/TFC.c
 
 Sources/TFC/TFC_ADC.o: ../Sources/TFC/TFC_ADC.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #7 $<'
+	@echo 'Executing target #6 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC_ADC.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC_ADC.o"
 	@echo 'Finished building: $<'
@@ -123,7 +137,7 @@ Sources/TFC/TFC_ADC.o: ../Sources/TFC/TFC_ADC.c
 
 Sources/TFC/TFC_BoardSupport.o: ../Sources/TFC/TFC_BoardSupport.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #8 $<'
+	@echo 'Executing target #7 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC_BoardSupport.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC_BoardSupport.o"
 	@echo 'Finished building: $<'
@@ -131,9 +145,17 @@ Sources/TFC/TFC_BoardSupport.o: ../Sources/TFC/TFC_BoardSupport.c
 
 Sources/TFC/TFC_CrystalClock.o: ../Sources/TFC/TFC_CrystalClock.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #9 $<'
+	@echo 'Executing target #8 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC_CrystalClock.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC_CrystalClock.o"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/TFC/TFC_DMA.o: ../Sources/TFC/TFC_DMA.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #9 $<'
+	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC_DMA.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC_DMA.o"
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -198,6 +220,14 @@ Sources/TFC/TFC_arm_cm4.o: ../Sources/TFC/TFC_arm_cm4.c
 	@echo 'Executing target #17 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC_arm_cm4.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC_arm_cm4.o"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+Sources/TFC/TFC_i2c.o: ../Sources/TFC/TFC_i2c.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #18 $<'
+	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/TFC/TFC_i2c.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/TFC/TFC_i2c.o"
 	@echo 'Finished building: $<'
 	@echo ' '
 

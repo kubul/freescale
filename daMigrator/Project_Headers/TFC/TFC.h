@@ -23,9 +23,13 @@
 #include "TFC\TFC_Queue.h"
 #include "TFC\TFC_UART.h"
 #include "TFC\TFC_Terminal.h"
+#include "TFC\TFC_i2c.h"
+#include "TFC\TFC_DMA.h"
+
 
 
 void TFC_Task();
 void TFC_Init();
+
 
 #endif /* TFC_H_ */

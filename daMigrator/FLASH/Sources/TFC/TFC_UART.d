@@ -44,7 +44,9 @@ Sources/TFC/TFC_UART.o: ../Sources/TFC/TFC_UART.c \
  H:/git2/daMigrator/Project_Headers/TFC\TFC_LineScanCamera.h \
  H:/git2/daMigrator/Project_Headers/TFC\TFC_Queue.h \
  H:/git2/daMigrator/Project_Headers/TFC\TFC_UART.h \
- H:/git2/daMigrator/Project_Headers/TFC\TFC_Terminal.h
+ H:/git2/daMigrator/Project_Headers/TFC\TFC_Terminal.h \
+ H:/git2/daMigrator/Project_Headers/TFC\TFC_i2c.h \
+ H:/git2/daMigrator/Project_Headers/TFC\TFC_DMA.h
 
 C:/Freescale/CW\ MCU\ v10.6/MCU/ARM_GCC_Support/ewl/EWL_C/include/lib_ewl.prefix:
 
@@ -137,3 +139,7 @@ H:/git2/daMigrator/Project_Headers/TFC\TFC_Queue.h:
 H:/git2/daMigrator/Project_Headers/TFC\TFC_UART.h:
 
 H:/git2/daMigrator/Project_Headers/TFC\TFC_Terminal.h:
+
+H:/git2/daMigrator/Project_Headers/TFC\TFC_i2c.h:
+
+H:/git2/daMigrator/Project_Headers/TFC\TFC_DMA.h:

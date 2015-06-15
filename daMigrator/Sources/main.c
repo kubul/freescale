@@ -2,22 +2,13 @@
 #include "TFC\TFC.h"
 #include "Spices.h"
 #include "demo.h"
-#include "i2c.h"
 
-
-void Init_I2C();
-void Init_Accel();
 void Init_Interrupts();
 
 int main(void) {
-	float t1;
-	float t0; 
-	float x = 0;
-
+	
 	TFC_Init();
-	Init_I2C();
-	Init_Accel();
-	Init_Interrupts();
+	EnableInterrupts;
 	Init_Demo();
 	
 	for(;;) {
@@ -26,8 +17,7 @@ int main(void) {
 		
 		if(TFC_GetDIP_Switch()&0x01) {
 			// Run MCP
-			//MasterControlProgram();
-	
+			MasterControlProgram();
 		
 		} else {
 			
@@ -38,20 +28,7 @@ int main(void) {
 	return 0;
 }
 
-void Init_Interrupts() {
-	EnableInterrupts;
-}
 
-
-
-void PORTA_IRQHandler() {  
-	PORTA_ISFR=0xFFFFFFFF;
-	TFC_SetMotorPWM(0,0); //Make sure motors are off
-	TFC_HBRIDGE_DISABLE;
-	TFC_BAT_LED0_ON;
-	I2CReadRegister(MMA8451_I2C_ADDRESS, INT_SOURCE);
-	I2CReadRegister(MMA8451_I2C_ADDRESS, PULSE_SRC);
-} 
 
 // EXAMPLES
 
