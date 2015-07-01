@@ -123,14 +123,23 @@ char uart_getchar (UART_MemMapPtr channel)
  *  channel      uart channel to send to
  *  ch			 character to send
  */ 
+/*
 void uart_putchar (UART_MemMapPtr channel, char ch)
 {
-	/* Wait until space is available in the FIFO */
+	// Wait until space is available in the FIFO 
 	while(!(UART_S1_REG(channel) & UART_S1_TDRE_MASK));
 
-	/* Send the character */
+	// Send the character 
 	UART_D_REG(channel) = (uint8)ch;
 
+}
+*/
+void uart_putchar (char ch)
+{
+	/* Wait until space is available in the FIFO */
+	while(!(UART0_S1 & UART_S1_TDRE_MASK));
+	/* Send the character */
+	UART0_D = (uint8_t)ch;
 }
 /********************************************************************/
 /*
@@ -149,4 +158,28 @@ int uart_getchar_present (UART_MemMapPtr channel)
 }
 /********************************************************************/
 
+void uart_printint(int num) {
+	if (num == 0) {
+		uart_putchar(0x30);
+	} else {
+		int start = 0;
+		if (num<0) {
+			uart_putchar('-');
+			num *= -1;
+		}
+		int q = 1000000000;
+		int high;
+		while (q>0) {
+			high = num/q;
+			if ((high>0)||start) {
+				if (!start) {
+					start=1;
+				}			
+				uart_putchar(high + 0x30);
+				num = num % (high*q);
+			}	
+			q /= 10;
+		}
+	}
+}
 

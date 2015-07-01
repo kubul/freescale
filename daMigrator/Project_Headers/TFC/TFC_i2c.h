@@ -83,8 +83,9 @@ void IIC_StartTransmission (char SlaveID, char Mode);
 void I2CWriteRegister(char SlaveID, char u8RegisterAddress, char u8Data);
 char I2CReadRegister(char SlaveID, char u8RegisterAddress);
 void I2CReadMultiRegisters(char SlaveID, char u8RegisterAddress, char n, char * r);
-void Start_I2C_Multi_Read(char SlaveID, char RegisterAddress);
-void Stop_I2C_Multi_Read();
+
 
 void Init_Accel(void);
 void Reset_Accel(void);
+void AccFIFO_Dump();
+void ReadAccelData(char SlaveID, char n, char * r);

@@ -17,7 +17,7 @@ int main(void) {
 		
 		if(TFC_GetDIP_Switch()&0x01) {
 			// Run MCP
-			MasterControlProgram();
+		//	MasterControlProgram();
 		
 		} else {
 			

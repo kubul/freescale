@@ -123,7 +123,7 @@ void TFC_InitMotorPWM()
   
 }
 
-
+//A right   B left
 void TFC_SetMotorPWM(float MotorA ,float MotorB)
 {
 	

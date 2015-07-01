@@ -11,7 +11,7 @@
 ENTRY(__thumb_startup)
 
 /* Highest address of the user mode stack */
-_estack = 0x20000000;    /* end of lower SRAM */
+_estack = 0x20020000;    /* end of lower SRAM */
 __SP_INIT = _estack;
 
 /* Generate a link error if heap and stack don't fit into RAM */
@@ -24,8 +24,8 @@ MEMORY
   m_interrupts	(rx) : ORIGIN = 0x00000000, LENGTH = 0x198
   m_cfmprotrom 	(rx) : ORIGIN = 0x00000400, LENGTH = 0x10
   m_text 		(rx) : ORIGIN = 0x00000800, LENGTH = 1M - 0x800
-  m_data 	   (rwx) : ORIGIN = 0x1FFF0000, LENGTH = 64K			/* Lower SRAM */
-  m_data2	   (rwx) : ORIGIN = 0x20000000, LENGTH = 192K			/* Upper SRAM */
+  m_data 	   (rwx) : ORIGIN = 0x1FFF0000, LENGTH = 192K			/* Lower SRAM */
+  m_data2	   (rwx) : ORIGIN = 0x20020000, LENGTH = 64K			/* Upper SRAM */
 }
 
 		

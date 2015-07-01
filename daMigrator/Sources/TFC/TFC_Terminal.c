@@ -113,7 +113,7 @@ void TerminalCmd_GetLineScan(char *arg)
 	for(i=0;i<128;i++)
 	{
 		
-		TERMINAL_PRINTF("%2X",LineScanImage0[i]);
+		//TERMINAL_PRINTF("%2X",LineScanImage0[i]);
 		
 		if(i<127)
 			TERMINAL_PRINTF(",");

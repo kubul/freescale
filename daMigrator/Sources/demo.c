@@ -6,19 +6,34 @@
 
 char accel[6];
 
-//CAMERA
-
-uint32_t i=0;
-int pixel, z, exposureTime;
-float gain, e;
-char buff[100];
-
 //FEEDBACK
 
 float iAver[2];
 float vAver[2];
 float iq, aq;
 
+//OVCAM
+
+volatile int counter = 0;
+volatile int VSync = 0;
+volatile int frameReady = 0;
+int frame = 0;
+
+char buffer1[VRES][HRES];
+char buffer2[VRES][HRES];
+volatile char (*outpointer)[HRES];
+
+//OVHLAM
+
+uint8_t ch;
+//int n = 1;		
+int i,j,k,m;
+int q;
+
+
+//SSENSORS
+
+// ??
 
 char packet[500];
 int packet_index;
@@ -26,8 +41,8 @@ int packet_index;
 signed int ReadShort(char * r);
 void Init_Demo() {
 
-	gain = 1;
-	exposureTime = 50000;
+	//gain = 1;
+	//exposureTime = 50000;
 
 	iAver[0] = 0.3; 
 	iAver[1] = 0.3;
@@ -36,66 +51,80 @@ void Init_Demo() {
 
 	iq = 0.95;
 	aq = 0.95;
-	
+
 	packet_index = 0;
+
 
 }
 
 
 int DemoProgram() {
- 
-	int temp;
-	
-	switch((TFC_GetDIP_Switch()>>1)&0x03) {
+	int c = 0;
+	uint8_t sw;
+	sw = (TFC_GetDIP_Switch()>>1)&0x07;
+	switch(sw) {
 
 	default:
 
 		TFC_SetMotorPWM(0,0); //Make sure motors are off
 		TFC_SetServo(0);
 		TFC_HBRIDGE_DISABLE;
-		
+
 		TFC_BAT_LED0_OFF;
 		TFC_BAT_LED1_OFF;
 		TFC_BAT_LED2_OFF;
 		TFC_BAT_LED3_OFF;
 
+		//RED_LED_OFF;
+		GREEN_LED_OFF;
+		BLUE_LED_OFF;
+
 		break;
 
-	case 1:
+	case 1: 
+
+		TFC_BAT_LED0_OFF;
+		TFC_BAT_LED1_OFF;
+		TFC_BAT_LED2_ON;
+		TFC_BAT_LED3_ON;
+		//RED_LED_OFF;
+		BLUE_LED_ON;
+		GREEN_LED_OFF;
 
 		if(TFC_PUSH_BUTTON_0_PRESSED) {
+			InitSpeedControlPID();
 			TFC_HBRIDGE_ENABLE;
 		}
 
 		if(TFC_PUSH_BUTTON_1_PRESSED) {
-		
 			TFC_SetMotorPWM(0,0);
 			TFC_HBRIDGE_DISABLE;
-		}
-
+		}		
 
 		//MOTOR
 
-		if(TFC_Ticker[0]>=20)
-		{
+		if(TFC_Ticker[0]>=20) {
 			TFC_Ticker[0] = 0;
 
-			TFC_SetMotorPWM(TFC_ReadPot(1),TFC_ReadPot(1));
+			TFC_SetServo(TFC_ReadPot(0));			
+			GetSensorInfo();
+			//TFC_SetMotorPWM(TFC_ReadPot(1),TFC_ReadPot(1));
+			daCar.speedDesired = TFC_ReadPot(1)*5;
+			SetSpeedControlPID();
 		}
 
 		//SERVOS
 
-		if(TFC_Ticker[1]>=20)
-		{
+		if(TFC_Ticker[1]>=20) {
 			TFC_Ticker[1] = 0;
 
-			TFC_SetServo(TFC_ReadPot(0));
+
 		}
 
 		//FEEDBACK
 
-		if(TFC_Ticker[2]>=20)
-		{
+		if(TFC_Ticker[2]>=20) {
+
 			TFC_Ticker[2] = 0;
 
 			iAver[0] = iAver[0]*iq + (1.0-iq)*(TFC_ReadHBridgeFeedBack(0)-iAver[0]);
@@ -115,111 +144,282 @@ int DemoProgram() {
 
 		//ACCELEROMETER
 
-		//if(TFC_Ticker[3] >= 20)
-		//{
-			//TFC_Ticker[3] = 0;
 
 
+		//
 
-			//Get accelerometer info
-			/*
-			I2CReadMultiRegisters(MMA8451_I2C_ADDRESS, OUT_X_MSB, 6, accel);
+		if(TFC_Ticker[3]>=20) {
 
-			if (packet_index == 0) {
-				sprintf(packet+packet_index, "%6d%6d%6d", ReadShort(accel), ReadShort(accel+2), ReadShort(accel+4));
-				packet_index = packet_index + 18;
-				//TERMINAL_PRINTF ("Axes acceleration: X: %d, Y: %d, Z: %d", readShort(accel), readShort(accel+2), readShort(accel+4));
-				//TERMINAL_PRINTF("a);
-				//TERMINAL_PRINTF("\r\n");
-			}
-			*/
-			//sprintf(packet+packet_index, "%6d%6d%6d", DATA_BUFFER[0], DATA_BUFFER[1], DATA_BUFFER[2]);
-			//packet_index = packet_index + 18;
-		//	TERMINAL_PRINTF("%6d\r\n",DATA_BUFFER[0]);
-			
-		//	TERMINAL_PRINTF("\r\n");
-		//	TERMINAL_PRINTF("Interrupt pins: 1: %d, 2: %d", (int)(temp&0x1), (int)(temp>>1));
-			
-		//}
-		//temp = TFC_GetAccelInterrupts(); //Still exists as example of reading GPIO
+			TFC_Ticker[3] = 0;
 
-		//TERMINAL_PRINTF("%d\r\n",(int) DMA_CSR_REG(DMA_BASE_PTR,0));
-		//TERMINAL_PRINTF("%6d\r\n",DATA_BUFFER[0]);
-		//DMA_ES_REG
-		
-		
-		
-		//CAMERA
 
-		if((TFC_Ticker[4] >= 100) && LineScanImageReady==1) 
-		{
+		}
+
+		//ADC
+
+		if(TFC_Ticker[4]>=20) {
 
 			TFC_Ticker[4] = 0;
 
-			LineScanImageReady=0;
-			z = 0;
-			//TERMINAL_PRINTF("c");
-			for(i=0;i<128;i++)
-			{
-				pixel = LineScanImage0[i]>>4;
-				z += pixel;
+			runADC();	
+		}
 
-				if (packet_index > 41) {
-					packet[packet_index++] = pixel;
-				}
-				//TERMINAL_PRINTF("%c",pixel);
+		break;
 
-				if(i==127) {
-					//TERMINAL_PRINTF("\r\n");
-				}
+	case 3:
+
+		TFC_BAT_LED0_ON;
+		TFC_BAT_LED1_ON;
+		TFC_BAT_LED2_ON;
+		TFC_BAT_LED3_ON;
+		//RED_LED_OFF;
+		BLUE_LED_OFF;
+		GREEN_LED_ON;
+
+		if(TFC_PUSH_BUTTON_0_PRESSED) {
+			InitSpeedControlPID();
+			daCar.speedDesired = 2;
+			TFC_Ticker[1] = 0;
+			TFC_HBRIDGE_ENABLE;
+			c = 1;
+		}
+
+		if(TFC_PUSH_BUTTON_1_PRESSED) {
+			TFC_SetMotorPWM(0,0);
+			TFC_HBRIDGE_DISABLE;
+		}		
+
+		//MOTOR
+
+		if(TFC_Ticker[0]>=20) {
+			TFC_Ticker[0] = 0;
+
+			TFC_SetServo(TFC_ReadPot(0));			
+			GetSensorInfo();
+			//TFC_SetMotorPWM(TFC_ReadPot(1),TFC_ReadPot(1));
+			//daCar.speedDesired = TFC_ReadPot(1)*5;
+			if (daCar.wheelspeed_front > 2) {
+				TFC_Ticker[1] = 0;
+				c = 1;
+
+			}
+			if (daCar.speedDesired == 0 && daCar.wheelspeed_front < 0.1) {
+				TFC_HBRIDGE_DISABLE;
 			}
 
-			z /= 128;
-			e = 5 - log((float)z);
-			gain += e;
+			SetSpeedControlPID();
+			
+			PrintSensorInfo();
+			
+			sprintf(packet, "%6d%6d%6d%6d", (int)(iAver[0]*1000),(int)(iAver[1]*1000),(int)(vAver[0]*1000),(int)(vAver[1]*1000));
+			TERMINAL_PRINTF(packet);			
+			uart_putchar(13);
+			uart_putchar(10);
+			
+		}
 
-			if (gain>10)
-				gain = 10;
-			if (gain<-12)
-				gain = -12;
+		//SERVOS
 
-			exposureTime = 4000+(int)exp(gain);
-			TFC_SetLineScanExposureTime(exposureTime);
+		if(TFC_Ticker[1]>=1000) {
+			if (c) {
+				daCar.speedDesired = 0;
+				TFC_Ticker[1] = 0;
+				TFC_HBRIDGE_DISABLE;
+			}
+		}
 
-			//sprintf(buff,"exp %d   z %d   e %d   gain %d   log(z) %d   exp(gain) %d\n\r", exposureTime, z, (int)(e*1000), (int)(gain*1000), (int)(log((float)z)*1000), (int)exp(gain));				
-			//TERMINAL_PRINTF(buff);
-			//TERMINAL_PRINTF("%d, ",exposureTime);
-			//TERMINAL_PRINTF("\r\n");
+		//FEEDBACK
+
+		if(TFC_Ticker[2]>=20) {
+
+			TFC_Ticker[2] = 0;
+
+			iAver[0] = iAver[0]*iq + (1.0-iq)*(TFC_ReadHBridgeFeedBack(0)-iAver[0]);
+			iAver[1] = iAver[1]*iq + (1.0-iq)*(TFC_ReadHBridgeFeedBack(1)-iAver[1]);
+
+			vAver[0] = vAver[0]*aq + (1.0-aq)*(TFC_ReadBatteryVoltage()*TFC_ReadPot(1)-vAver[0]);
+			vAver[1] = vAver[1]*aq + (1.0-aq)*(TFC_ReadBatteryVoltage()*TFC_ReadPot(1)-vAver[1]);
+
+			if (packet_index==18) {
+				sprintf(packet+packet_index, "%6d%6d%6d%6d", (int)(iAver[0]*1000),(int)(iAver[1]*1000),(int)(vAver[0]*1000),(int)(vAver[1]*1000));
+				packet_index = packet_index + 24;
+				//TERMINAL_PRINTF("%d", (int)(iAver[0]*1000));
+				//TERMINAL_PRINTF("\r\n");
+			}
 
 		}
+
+		//ACCELEROMETER
+
+
+
+		//
+
+		if(TFC_Ticker[3]>=5) {
+			TFC_Ticker[3] = 0;		
+
+		}
+
+		//ADC
+
+		if(TFC_Ticker[4]>=20) {
+
+			TFC_Ticker[4] = 0;
+
+			runADC();	
+		}
+
 		break;
-		
+
+
+
 	case 2:
-		
+
+
+		TFC_BAT_LED0_ON;
+		TFC_BAT_LED1_ON;
+		TFC_BAT_LED2_OFF;
+		TFC_BAT_LED3_OFF;
+		//RED_LED_OFF;
+		BLUE_LED_OFF;
+		GREEN_LED_ON;
+
+
+		//CAMERA
+
+		if (VSync) {
+			VSync = 0;
+		}
+
+		if (frameReady==1) {			
+
+			uart_putchar(13);
+			uart_putchar(10);
+
+			for (i = 0; i<VRES; ++i) {
+				for (j = 0; j<HRES/8*8; j+=8) {
+					ch = 0;
+					for (k = 0; k<8; ++k) {
+						ch |= (outpointer[i][j+k] & 1) << k;
+					}		
+					uart_putchar(ch);
+				}				
+				if (j<HRES) {
+					ch = 0;
+					for (k=j, m=0; k<HRES; ++k, ++m) {
+						ch |= (outpointer[i][k] & 1) << m;
+					}
+
+					uart_putchar(ch);
+				}
+			}		
+
+			frameReady = 0;
+
+			for (i = 0; i<10; ++i) {
+				uart_putchar(9);
+			}		
+
+		}
+
+
+		break;
+
+	case 4:			//calibration
 
 		
-		break;
-		
-	case 3:
-		
+		GREEN_LED_OFF;
+		BLUE_LED_OFF;
+		RED_LED_OFF;
 
-		
-		break;
-		
-	case 4:
-		
+		if(TFC_PUSH_BUTTON_0_PRESSED) {
 
-		
+			for (c = 0; c < CMP_QUANTISATION_LEVELS; c++) {
+				if (TFC_PUSH_BUTTON_1_PRESSED) {
+					break;
+				}
+				CMP_DACCR_REG(CMP1_BASE_PTR) &= ~CMP_DACCR_VOSEL_MASK;
+				CMP_DACCR_REG(CMP1_BASE_PTR) |= CMP_DACCR_VOSEL(c); 
+
+				TFC_BAT_LED0_OFF;
+				TFC_BAT_LED1_OFF;
+				TFC_BAT_LED2_OFF;
+				TFC_BAT_LED3_OFF;
+				GREEN_LED_OFF;
+				BLUE_LED_OFF;
+
+				if ((c>>0) & 1) {
+					TFC_BAT_LED0_ON;					
+				}
+				if ((c>>1) & 1) {
+					TFC_BAT_LED1_ON;					
+				}
+				if ((c>>2) & 1) {
+					TFC_BAT_LED2_ON;					
+				}
+				if ((c>>3) & 1) {
+					TFC_BAT_LED3_ON;					
+				}
+				if ((c>>4) & 1) {
+					GREEN_LED_ON;	
+				}
+				if ((c>>5) & 1) {
+					BLUE_LED_ON;	
+				}
+
+
+
+				//CAMERA
+				while (!frameReady) {
+					//	asm("nop");
+				}			
+				frameReady = 0;
+
+				while (!frameReady) {
+					//	asm("nop");
+				}			
+				frameReady = 0;
+
+
+				while (!frameReady) {
+					//	asm("nop");				
+				}
+
+				uart_putchar(13);
+				uart_putchar(10);
+				uart_printint(c+10);
+
+				for (i = 0; i<VRES; ++i) {
+					for (j = 0; j<HRES/8*8; j+=8) {
+						ch = 0;
+						for (k = 0; k<8; ++k) {
+							ch |= (outpointer[i][j+k] & 1) << k;
+						}		
+						uart_putchar(ch);
+					}				
+					if (j<HRES) {
+						ch = 0;
+						for (k=j, m=0; k<HRES; ++k, ++m) {
+							ch |= (outpointer[i][k] & 1) << m;
+						}
+
+						uart_putchar(ch);
+					}
+				}		
+
+				frameReady = 0;
+
+				for (i = 0; i<10; ++i) {
+					uart_putchar(9);
+				}
+			}
+		}
 		break;
-		
 	}
-	
-	if(TFC_Ticker[3] >= 22)
-	{
-		TFC_Ticker[3] = 0;
-		FIFO_Dump();
-	}
-	
+	return 0;
+}
+
+/*
 	if (packet_index > 42 ) {		
 		packet[packet_index] = 0;
 		packet_index = 0;
@@ -227,5 +427,4 @@ int DemoProgram() {
 		//TERMINAL_PRINTF("\r\n");
 	}
 	return 0;
-}
-
+ */

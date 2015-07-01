@@ -7,7 +7,7 @@
 
 #ifndef TFC_DMA_H_
 #define TFC_DMA_H_
-
+#include "derivative.h"
 //DMA MUX request sources
 
 // RESERVED 1
@@ -68,15 +68,28 @@
 #define DMA_IEEE1588_T1 55
 #define DMA_IEEE1588_T2 56
 #define DMA_IEEE1588_T3 57
-#define DMA_MUX0_AE 	58
-#define DMA_MUX1_AE		59
-#define DMA_MUX2_AE 	60
-#define DMA_MUX3_AE 	61
-#define DMA_MUX4_AE 	62
-#define DMA_MUX5_AE 	63
+#define DMA_AE0 		58
+#define DMA_AE1			59
+#define DMA_AE2		 	60
+#define DMA_AE3		 	61
+#define DMA_AE4 		62
+#define DMA_AE5 		63
 
+typedef struct
+{
+	uint32_t SADDR;
+	int16_t  SOFF;
+	uint16_t ATTR;
+	uint32_t NBYTES;
+	uint32_t SLAST;
+	uint32_t DADDR;
+	int16_t  DOFF;
+	uint16_t CITER;
+	uint32_t DLAST_SGA;
+	uint16_t CSR;
+	uint16_t BITER;
+} DMA_TCD_SETTING __attribute__((aligned(32)));;
 
 void TFC_InitDMA();
-void Configure_DMA(int index, uint8_t dma_source, uint32_t iterations, uint32_t minor_loop, uint32_t source, uint32_t destination, uint32_t source_bytes_per, uint32_t dest_bytes_per);
 
 #endif /* TFC_DMA_H_ */

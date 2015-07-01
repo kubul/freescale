@@ -7,7 +7,7 @@
 #define TFC_HBRIDGE_FB_B_ADC_CHANNEL		1
 
 #define TFC_BAT_SENSE_CHANNEL		20
-#define TFC_LINESCAN0_ADC_CHANNEL	19
+//#define TFC_LINESCAN0_ADC_CHANNEL	19
 
 #define ADC_MAX_CODE    (4095)
 /*
@@ -31,7 +31,7 @@
 #define ADC1A_DONE   0x04       
 #define ADC1B_DONE   0x08       
 
-*/
+ */
 // Bit shifting of bitfiled is already taken into account so 
 // bitfiled values are always represented as relative to their position.
 
@@ -254,13 +254,12 @@ void ADC_Read_Cal(ADC_MemMapPtr, tADC_Cal_Blk *);
 #define ADC_STATE_CAPTURE_BATTERY_LEVEL			5
 #define ADC_STATE_CAPTURE_LINE_SCAN		        6
 
-volatile uint16_t PotADC_Value[2];
+volatile uint16_t PotADC_Value[2] = {0x800, 0x800};
 volatile uint16_t HBridge_Value[2];
 volatile uint16_t BatSenseADC_Value;
 static uint8_t 	CurrentADC0_State =	ADC_STATE_INIT;	
 static uint8_t 	CurrentADC1_State =	ADC_STATE_INIT;	
 
-volatile uint8_t CurrentLineScanPixel = 0;
 
 void InitADC();
 
@@ -384,7 +383,7 @@ void InitADC()
 
 	SIM_SCGC6 |= SIM_SCGC6_ADC0_MASK;
 	SIM_SCGC3 |= SIM_SCGC3_ADC1_MASK;
-	
+
 	PORTB_PCR11 = PORT_PCR_MUX(0);
 	PORTB_PCR10 = PORT_PCR_MUX(0);
 
@@ -421,19 +420,19 @@ void InitADC()
 			| ADC_SC3_AVGS(AVGS_4);
 
 	Master_Adc_Config.PGA =     0; // Disable the PGA
-	
-	
+
+
 
 	// Configure ADC as it will be used, but because ADC_SC1_ADCH is 31,
 	// the ADC will be inactive.  Channel 31 is just disable function.
 	// There really is no channel 31.
 
 	Master_Adc_Config.STATUS1A = AIEN_ON | DIFF_SINGLE | ADC_SC1_ADCH(31);
-	
+
 	ADC_Config_Alt(ADC0_BASE_PTR, &Master_Adc_Config);  // config ADC
 	ADC_Config_Alt(ADC1_BASE_PTR, &Master_Adc_Config);  // config ADC
 
-	
+
 	// Calibrate the ADC in the configuration in which it will be used:
 	ADC_Cal(ADC0_BASE_PTR);                    // do the calibration
 	ADC_Cal(ADC1_BASE_PTR);                    // do the calibration
@@ -467,10 +466,13 @@ void TFC_InitADCs()
 	//This is done to automate the linescan capture on Channel 0 to ensure that timing is very even
 	CurrentADC0_State =	ADC_STATE_INIT;	
 	CurrentADC1_State =	ADC_STATE_INIT;	
-	
+
+	enable_irq(INT_ADC0-16);
+	enable_irq(INT_ADC1-16);
+
 	//The pump will be primed with the PIT interrupt.  upon timeout/interrupt it will set the SI signal high
 	//for the camera and then start the conversions for the pots.
-
+	/*
 	//Enable clock to the PIT
 	SIM_SCGC6 |= SIM_SCGC6_PIT_MASK;
 
@@ -483,33 +485,16 @@ void TFC_InitADCs()
 	//Enable the PIT module
 	PIT_MCR &= ~PIT_MCR_MDIS_MASK;
 
-	enable_irq(INT_PIT0-16);
-	enable_irq(INT_ADC0-16);
-	enable_irq(INT_ADC1-16);
+	//enable_irq(INT_PIT0-16);
 
 
+	 */
 
-}
-
-void PIT0_IRQHandler()
-{
-	PIT_TFLG0 = PIT_TFLG_TIF_MASK; //Turn off the Pit 0 Irq flag 
-	
-	TAOS_SI_HIGH;
-	//Prime the ADC pump and start capturing
-	CurrentADC0_State = ADC_STATE_CAPTURE_BATTERY_LEVEL;
-	CurrentADC1_State = ADC_STATE_CAPTURE_POT_0;
-
-	ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
-	ADC0_SC1A  =  TFC_BAT_SENSE_CHANNEL | ADC_SC1_AIEN_MASK;  //Start the State machine at battery sensor
-
-	ADC1_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
-	ADC1_SC1A  =  TFC_POT_0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;  //Start the State machine at POT0
 }
 
 void ADC0_IRQHandler()
 {
-	
+
 	uint8_t Junk;
 	switch(CurrentADC0_State)
 	{
@@ -520,86 +505,21 @@ void ADC0_IRQHandler()
 
 
 	case ADC_STATE_CAPTURE_BATTERY_LEVEL:
-		
+
 		BatSenseADC_Value = ADC0_RA;
 
-		ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
-		ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
-		CurrentADC0_State = ADC_STATE_CAPTURE_LINE_SCAN;
+		CurrentADC0_State = ADC_STATE_INIT;
 
-		//Now we will start the sequence for the Linescan camera
-
-		TAOS_CLK_HIGH;
-
-		for(Junk = 0;Junk<125;Junk++)
-		{
-		}
-
-		TAOS_SI_LOW;
-	
-
-		CurrentLineScanPixel = 0;
-
-		break;
-
-	case ADC_STATE_CAPTURE_LINE_SCAN:
-		
-		if(CurrentLineScanPixel<128)
-		{
-
-			LineScanImage0WorkingBuffer[CurrentLineScanPixel] = ADC0_RA;
-			CurrentLineScanPixel++;
-
-			TAOS_CLK_LOW;
-			for(Junk = 0;Junk<125;Junk++)
-			{
-			}
-			TAOS_CLK_HIGH;
-			
-			ADC0_SC1A  =  TFC_LINESCAN0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;
-
-		}
-		else
-		{
-			// done with the capture sequence.  we can wait for the PIT0 IRQ to restart
-
-			TAOS_CLK_HIGH;
-
-			for(Junk = 0;Junk<125;Junk++)
-			{
-			}
-
-			TAOS_CLK_LOW;
-			CurrentADC0_State = ADC_STATE_INIT;	 
-
-			//swap the buffer
-
-			if(LineScanWorkingBuffer == 0)
-			{
-				LineScanWorkingBuffer = 1;
-				LineScanImage0WorkingBuffer = &LineScanImage0Buffer[1][0];
-
-				LineScanImage0 = &LineScanImage0Buffer[0][0];
-			}
-			else
-			{
-				LineScanWorkingBuffer = 0;
-				LineScanImage0WorkingBuffer = &LineScanImage0Buffer[0][0];
-
-				LineScanImage0 = &LineScanImage0Buffer[1][0];
-			}
-
-			LineScanImageReady = TRUE;
-		}
 
 		break;
 	}
-	
+
+
 }
 
 void ADC1_IRQHandler()
 {
-	
+
 	uint8_t Junk;
 	switch(CurrentADC1_State)
 	{
@@ -608,7 +528,7 @@ void ADC1_IRQHandler()
 		break;
 
 	case ADC_STATE_CAPTURE_POT_0:
-		
+
 
 		PotADC_Value[0] = ADC1_RA;
 		ADC1_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
@@ -618,8 +538,8 @@ void ADC1_IRQHandler()
 		break;
 
 	case ADC_STATE_CAPTURE_POT_1:
-		
-		
+
+
 		PotADC_Value[1] = ADC1_RA;
 		ADC1_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
 		ADC1_SC1A  =  TFC_HBRIDGE_FB_A_ADC_CHANNEL| ADC_SC1_AIEN_MASK;
@@ -629,7 +549,7 @@ void ADC1_IRQHandler()
 
 
 	case ADC_STATE_CAPTURE_HBRIDGE_A:	
-			
+
 
 		HBridge_Value[0] = ADC1_RA;
 
@@ -640,13 +560,12 @@ void ADC1_IRQHandler()
 		break;
 
 	case ADC_STATE_CAPTURE_HBRIDGE_B:	
-		
 
 
 		HBridge_Value[1] = ADC1_RA;
 
 		CurrentADC1_State = ADC_STATE_INIT;
-		
+
 		break;
 
 
@@ -676,4 +595,16 @@ float TFC_ReadHBridgeFeedBack(uint8_t Channel)
 		return (float)HBridge_Value[1] / (float)ADC_MAX_CODE * 3.3 * 375.0 / 220.0;
 }
 
+void runADC() {
 
+
+	CurrentADC0_State = ADC_STATE_CAPTURE_BATTERY_LEVEL;
+
+	CurrentADC1_State = ADC_STATE_CAPTURE_POT_0;
+
+	ADC0_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
+	ADC0_SC1A  =  TFC_BAT_SENSE_CHANNEL | ADC_SC1_AIEN_MASK;  //Start the State machine at battery sensor
+
+	ADC1_CFG2  &= ~ADC_CFG2_MUXSEL_MASK; //Select the A side of the mux
+	ADC1_SC1A  =  TFC_POT_0_ADC_CHANNEL | ADC_SC1_AIEN_MASK;  //Start the State machine at POT0
+}

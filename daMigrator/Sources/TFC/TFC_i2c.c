@@ -255,7 +255,7 @@ void Init_Accel()
 	if ((x > 127) || (x < -128) || (y > 127) || (y < -128) || (z > 127) || (z < -128)) {
 		RED_LED_ON;
 	} else {
-		GREEN_LED_ON;
+		
 	}
 
 	nx = x;
@@ -289,7 +289,7 @@ void Init_Accel()
 	pz = 0x0000;
 }
 
-void FIFO_Dump() {
+void AccFIFO_Dump() {
 	uint8_t stat;
 	uint8_t count;
 	uint8_t i;
@@ -328,15 +328,6 @@ void FIFO_Dump() {
 	 */
 
 	//integration mumble
-
-
-	if (TFC_Ticker[0] > 200) {
-		GREEN_LED_ON;
-	}
-	if (TFC_Ticker[0] > 400) {
-		TFC_Ticker[0] = 0;
-		GREEN_LED_OFF;
-	}
 
 
 accavgx = 0x0000;
@@ -393,7 +384,7 @@ accavgz = accel_data[i-1];
 }
 void Reset_Accel() {
 	I2CWriteRegister(MMA8451_I2C_ADDRESS, CTRL_REG2, 0x40); 	//reset
-	TFC_Ticker[0] = 0;
-	while (TFC_Ticker[0] < 100) {}
+	TFC_Ticker[5] = 0;
+	while (TFC_Ticker[5] < 100) {}
 
 }
